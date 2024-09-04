@@ -16,7 +16,8 @@ using UnityEngine;
 /// 
 /// </summary>
 [AddComponentMenu("BoneCracker Games/Realistic Car Controller/Main/RCC Scene Manager")]
-public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
+public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager>
+{
 
     public RCC_CarControllerV3 activePlayerVehicle;     //  Current active player vehicle.
     public RCC_Camera activePlayerCamera;       //  Current active player camera as RCC Camera.
@@ -45,7 +46,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
 
     public Terrain[] allTerrains;       //  All terrains.
 
-    public class Terrains {
+    public class Terrains
+    {
 
         //	Terrain data.
         public Terrain terrain;
@@ -70,7 +72,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     public delegate void onVehicleChanged();
     public static event onVehicleChanged OnVehicleChanged;
 
-    private void Awake() {
+    private void Awake()
+    {
 
         // Overriding Fixed TimeStep.
         if (RCC_Settings.Instance.overrideFixedTimeStep)
@@ -104,8 +107,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
         orgTimeScale = Time.timeScale;
 
         //  If lock cursor is enabled in RCC Settings, lock the cursor.
-        if (RCC_Settings.Instance.lockAndUnlockCursor)
-            Cursor.lockState = CursorLockMode.Locked;
+        //if (RCC_Settings.Instance.lockAndUnlockCursor)
+        //Cursor.lockState = CursorLockMode.Locked;
 
     }
 
@@ -115,14 +118,17 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// When RCC vehicle is spawned.
     /// </summary>
     /// <param name="RCC"></param>
-    private void RCC_CarControllerV3_OnRCCSpawned(RCC_CarControllerV3 RCC) {
+    private void RCC_CarControllerV3_OnRCCSpawned(RCC_CarControllerV3 RCC)
+    {
 
         //  If all vehicles list doesn't contain spawned vehicle, add it to the list.
-        if (!allVehicles.Contains(RCC)) {
+        if (!allVehicles.Contains(RCC))
+        {
 
             allVehicles.Add(RCC);
 
-            if (useRecord) {
+            if (useRecord)
+            {
 
                 //  Finding recorder if attached to the vehicle before. If not found, add it.
                 allRecorders = new List<RCC_Recorder>();
@@ -130,11 +136,14 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
 
                 RCC_Recorder recorder = null;
 
-                if (allRecorders != null && allRecorders.Count > 0) {
+                if (allRecorders != null && allRecorders.Count > 0)
+                {
 
-                    for (int i = 0; i < allRecorders.Count; i++) {
+                    for (int i = 0; i < allRecorders.Count; i++)
+                    {
 
-                        if (allRecorders[i] != null && allRecorders[i].carController == RCC) {
+                        if (allRecorders[i] != null && allRecorders[i].carController == RCC)
+                        {
                             recorder = allRecorders[i];
                             break;
                         }
@@ -143,7 +152,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
 
                 }
 
-                if (recorder == null) {
+                if (recorder == null)
+                {
 
                     recorder = gameObject.AddComponent<RCC_Recorder>();
                     recorder.carController = RCC;
@@ -175,14 +185,17 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// When AI vehicle spawned.
     /// </summary>
     /// <param name="RCCAI"></param>
-    private void RCC_AICarController_OnRCCAISpawned(RCC_AICarController RCCAI) {
+    private void RCC_AICarController_OnRCCAISpawned(RCC_AICarController RCCAI)
+    {
 
         //  If all vehicles list doesn't contain spawned vehicle, add it to the list.
-        if (!allVehicles.Contains(RCCAI.CarController)) {
+        if (!allVehicles.Contains(RCCAI.CarController))
+        {
 
             allVehicles.Add(RCCAI.CarController);
 
-            if (useRecord) {
+            if (useRecord)
+            {
 
                 //  Finding recorder if attached to the vehicle before. If not found, add it.
                 allRecorders = new List<RCC_Recorder>();
@@ -190,11 +203,14 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
 
                 RCC_Recorder recorder = null;
 
-                if (allRecorders != null && allRecorders.Count > 0) {
+                if (allRecorders != null && allRecorders.Count > 0)
+                {
 
-                    for (int i = 0; i < allRecorders.Count; i++) {
+                    for (int i = 0; i < allRecorders.Count; i++)
+                    {
 
-                        if (allRecorders[i] != null && allRecorders[i].carController == RCCAI.CarController) {
+                        if (allRecorders[i] != null && allRecorders[i].carController == RCCAI.CarController)
+                        {
                             recorder = allRecorders[i];
                             break;
                         }
@@ -203,7 +219,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
 
                 }
 
-                if (recorder == null) {
+                if (recorder == null)
+                {
 
                     recorder = gameObject.AddComponent<RCC_Recorder>();
                     recorder.carController = RCCAI.CarController;
@@ -214,7 +231,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
 
         }
 
-        if (useRecord) {
+        if (useRecord)
+        {
 
             //  Checking all recorders.
             StartCoroutine(CheckMissingRecorders());
@@ -227,7 +245,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// When RCC Camera spawned.
     /// </summary>
     /// <param name="BCGCamera"></param>
-    private void RCC_Camera_OnBCGCameraSpawned(GameObject BCGCamera) {
+    private void RCC_Camera_OnBCGCameraSpawned(GameObject BCGCamera)
+    {
 
         if (BCGCamera.GetComponent<RCC_Camera>())
             activePlayerCamera = BCGCamera.GetComponent<RCC_Camera>();
@@ -239,7 +258,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// When a character with enter exit script spawned.
     /// </summary>
     /// <param name="player"></param>
-    private void BCG_EnterExitPlayer_OnBCGPlayerSpawned(BCG_EnterExitPlayer player) {
+    private void BCG_EnterExitPlayer_OnBCGPlayerSpawned(BCG_EnterExitPlayer player)
+    {
 
         activePlayerCharacter = player;
 
@@ -254,7 +274,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// When a vehicle destroyed.
     /// </summary>
     /// <param name="RCC"></param>
-    private void RCC_CarControllerV3_OnRCCPlayerDestroyed(RCC_CarControllerV3 RCC) {
+    private void RCC_CarControllerV3_OnRCCPlayerDestroyed(RCC_CarControllerV3 RCC)
+    {
 
         if (allVehicles.Contains(RCC))
             allVehicles.Remove(RCC);
@@ -267,7 +288,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// When a AI vehicle destroyed.
     /// </summary>
     /// <param name="RCCAI"></param>
-    private void RCC_AICarController_OnRCCAIDestroyed(RCC_AICarController RCCAI) {
+    private void RCC_AICarController_OnRCCAIDestroyed(RCC_AICarController RCCAI)
+    {
 
         if (allVehicles.Contains(RCCAI.CarController))
             allVehicles.Remove(RCCAI.CarController);
@@ -281,14 +303,16 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// When a character with enter exit script destroyed.
     /// </summary>
     /// <param name="player"></param>
-    private void BCG_EnterExitPlayer_OnBCGPlayerDestroyed(BCG_EnterExitPlayer player) {
+    private void BCG_EnterExitPlayer_OnBCGPlayerDestroyed(BCG_EnterExitPlayer player)
+    {
 
     }
 #endif
 
     #endregion
 
-    private void Start() {
+    private void Start()
+    {
 
         //  Getting all terrains.
         StartCoroutine(GetAllTerrains());
@@ -299,20 +323,24 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// Getting all terrains.
     /// </summary>
     /// <returns></returns>
-    public IEnumerator GetAllTerrains() {
+    public IEnumerator GetAllTerrains()
+    {
 
         yield return new WaitForFixedUpdate();
         allTerrains = Terrain.activeTerrains;
         yield return new WaitForFixedUpdate();
 
         //  If terrains found...
-        if (allTerrains != null && allTerrains.Length >= 1) {
+        if (allTerrains != null && allTerrains.Length >= 1)
+        {
 
             terrains = new Terrains[allTerrains.Length];
 
-            for (int i = 0; i < allTerrains.Length; i++) {
+            for (int i = 0; i < allTerrains.Length; i++)
+            {
 
-                if (allTerrains[i].terrainData == null) {
+                if (allTerrains[i].terrainData == null)
+                {
 
                     Debug.LogError("Terrain data of the " + allTerrains[i].transform.name + " is missing! Check the terrain data...");
                     yield return null;
@@ -322,7 +350,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
             }
 
             //  Initializing terrains.
-            for (int i = 0; i < terrains.Length; i++) {
+            for (int i = 0; i < terrains.Length; i++)
+            {
 
                 terrains[i] = new Terrains();
                 terrains[i].terrain = allTerrains[i];
@@ -342,12 +371,15 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
 
     }
 
-    private void Update() {
+    private void Update()
+    {
 
         //  When player vehicle changed...
-        if (activePlayerVehicle) {
+        if (activePlayerVehicle)
+        {
 
-            if (activePlayerVehicle != lastActivePlayerVehicle) {
+            if (activePlayerVehicle != lastActivePlayerVehicle)
+            {
 
                 if (OnVehicleChanged != null)
                     OnVehicleChanged();
@@ -366,12 +398,15 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
         if (Camera.main != null)
             activeMainCamera = Camera.main;
 
-        if (useRecord) {
+        if (useRecord)
+        {
 
             //  Getting all recorders and setting their states.
-            if (allRecorders != null && allRecorders.Count > 0) {
+            if (allRecorders != null && allRecorders.Count > 0)
+            {
 
-                switch (allRecorders[0].mode) {
+                switch (allRecorders[0].mode)
+                {
 
                     case RCC_Recorder.Mode.Neutral:
 
@@ -399,12 +434,14 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// <summary>
     /// Recording.
     /// </summary>
-    public void Record() {
+    public void Record()
+    {
 
         if (!useRecord)
             return;
 
-        if (allRecorders != null && allRecorders.Count > 0) {
+        if (allRecorders != null && allRecorders.Count > 0)
+        {
 
             for (int i = 0; i < allRecorders.Count; i++)
                 allRecorders[i].Record();
@@ -416,12 +453,14 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// <summary>
     /// Playing.
     /// </summary>
-    public void Play() {
+    public void Play()
+    {
 
         if (!useRecord)
             return;
 
-        if (allRecorders != null && allRecorders.Count > 0) {
+        if (allRecorders != null && allRecorders.Count > 0)
+        {
 
             for (int i = 0; i < allRecorders.Count; i++)
                 allRecorders[i].Play();
@@ -433,12 +472,14 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// <summary>
     /// Stop all records.
     /// </summary>
-    public void Stop() {
+    public void Stop()
+    {
 
         if (!useRecord)
             return;
 
-        if (allRecorders != null && allRecorders.Count > 0) {
+        if (allRecorders != null && allRecorders.Count > 0)
+        {
 
             for (int i = 0; i < allRecorders.Count; i++)
                 allRecorders[i].Stop();
@@ -451,7 +492,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// Checking all recorders. If missing found, destroy it.
     /// </summary>
     /// <returns></returns>
-    private IEnumerator CheckMissingRecorders() {
+    private IEnumerator CheckMissingRecorders()
+    {
 
         if (!useRecord)
             yield break;
@@ -461,9 +503,11 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
         allRecorders = new List<RCC_Recorder>();
         allRecorders.AddRange(gameObject.GetComponentsInChildren<RCC_Recorder>());
 
-        if (allRecorders != null && allRecorders.Count > 0) {
+        if (allRecorders != null && allRecorders.Count > 0)
+        {
 
-            for (int i = 0; i < allRecorders.Count; i++) {
+            for (int i = 0; i < allRecorders.Count; i++)
+            {
 
                 if (allRecorders[i].carController == null)
                     Destroy(allRecorders[i]);
@@ -483,7 +527,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// Registers the target vehicle as player vehicle.
     /// </summary>
     /// <param name="playerVehicle"></param>
-    public void RegisterPlayer(RCC_CarControllerV3 playerVehicle) {
+    public void RegisterPlayer(RCC_CarControllerV3 playerVehicle)
+    {
 
         activePlayerVehicle = playerVehicle;
 
@@ -503,7 +548,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// </summary>
     /// <param name="playerVehicle"></param>
     /// <param name="isControllable"></param>
-    public void RegisterPlayer(RCC_CarControllerV3 playerVehicle, bool isControllable) {
+    public void RegisterPlayer(RCC_CarControllerV3 playerVehicle, bool isControllable)
+    {
 
         activePlayerVehicle = playerVehicle;
         activePlayerVehicle.SetCanControl(isControllable);
@@ -525,7 +571,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// <param name="playerVehicle"></param>
     /// <param name="isControllable"></param>
     /// <param name="engineState"></param>
-    public void RegisterPlayer(RCC_CarControllerV3 playerVehicle, bool isControllable, bool engineState) {
+    public void RegisterPlayer(RCC_CarControllerV3 playerVehicle, bool isControllable, bool engineState)
+    {
 
         activePlayerVehicle = playerVehicle;
         activePlayerVehicle.SetCanControl(isControllable);
@@ -545,7 +592,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// <summary>
     /// Deregisters the player vehicle.
     /// </summary>
-    public void DeRegisterPlayer() {
+    public void DeRegisterPlayer()
+    {
 
         if (activePlayerVehicle)
             activePlayerVehicle.SetCanControl(false);
@@ -560,9 +608,11 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// <summary>
     /// Checks UI canvas.
     /// </summary>
-    public void CheckCanvas() {
+    public void CheckCanvas()
+    {
 
-        if (!activePlayerVehicle || !activePlayerVehicle.canControl || !activePlayerVehicle.gameObject.activeInHierarchy || !activePlayerVehicle.enabled) {
+        if (!activePlayerVehicle || !activePlayerVehicle.canControl || !activePlayerVehicle.gameObject.activeInHierarchy || !activePlayerVehicle.enabled)
+        {
 
             activePlayerCanvas.SetDisplayType(RCC_UIDashboardDisplay.DisplayType.Off);
 
@@ -578,7 +628,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     ///<summary>
     /// Sets new behavior.
     ///</summary>
-    public void SetBehavior(int behaviorIndex) {
+    public void SetBehavior(int behaviorIndex)
+    {
 
         RCC_Settings.Instance.overrideBehavior = true;
         RCC_Settings.Instance.behaviorSelectedIndex = behaviorIndex;
@@ -591,7 +642,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// <summary>
     /// Changes current camera mode.
     /// </summary>
-    public void ChangeCamera() {
+    public void ChangeCamera()
+    {
 
         if (activePlayerCamera)
             activePlayerCamera.ChangeCamera();
@@ -603,9 +655,11 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// </summary>
     /// <param name="position">Position.</param>
     /// <param name="rotation">Rotation.</param>
-    public void Transport(Vector3 position, Quaternion rotation) {
+    public void Transport(Vector3 position, Quaternion rotation)
+    {
 
-        if (activePlayerVehicle) {
+        if (activePlayerVehicle)
+        {
 
             activePlayerVehicle.Rigid.velocity = Vector3.zero;
             activePlayerVehicle.Rigid.angularVelocity = Vector3.zero;
@@ -633,9 +687,11 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// <param name="vehicle"></param>
     /// <param name="position"></param>
     /// <param name="rotation"></param>
-    public void Transport(RCC_CarControllerV3 vehicle, Vector3 position, Quaternion rotation) {
+    public void Transport(RCC_CarControllerV3 vehicle, Vector3 position, Quaternion rotation)
+    {
 
-        if (vehicle) {
+        if (vehicle)
+        {
 
             vehicle.Rigid.velocity = Vector3.zero;
             vehicle.Rigid.angularVelocity = Vector3.zero;
@@ -662,11 +718,13 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// </summary>
     /// <param name="vehicle"></param>
     /// <returns></returns>
-    private IEnumerator Freeze(RCC_CarControllerV3 vehicle) {
+    private IEnumerator Freeze(RCC_CarControllerV3 vehicle)
+    {
 
         float timer = 1f;
 
-        while (timer > 0) {
+        while (timer > 0)
+        {
 
             timer -= Time.deltaTime;
             vehicle.canControl = false;
@@ -684,7 +742,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
     /// Enters slow motion.
     /// </summary>
     /// <param name="state"></param>
-    private void RCC_InputManager_OnSlowMotion(bool state) {
+    private void RCC_InputManager_OnSlowMotion(bool state)
+    {
 
         if (state)
             Time.timeScale = .2f;
@@ -693,7 +752,8 @@ public class RCC_SceneManager : RCC_Singleton<RCC_SceneManager> {
 
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
 
         RCC_Camera.OnBCGCameraSpawned -= RCC_Camera_OnBCGCameraSpawned;
         RCC_CarControllerV3.OnRCCPlayerSpawned -= RCC_CarControllerV3_OnRCCSpawned;

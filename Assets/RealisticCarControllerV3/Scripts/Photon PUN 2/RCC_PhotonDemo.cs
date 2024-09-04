@@ -15,12 +15,14 @@ using UnityEngine.SceneManagement;
 using Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using StarterAssets;
 
 /// <summary>
 /// A simple manager script for photon demo scene. It has an array of networked spawnable player vehicles, public methods, restart, and quit application.
 /// </summary>
 [AddComponentMenu("BoneCracker Games/Realistic Car Controller/Network/Photon/RCC Photon Demo Manager")]
-public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
+public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
+{
 
     public bool reconnectIfFails = true;
     private bool connectedWithThis = false;
@@ -30,21 +32,45 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
 
     public Transform[] spawnPoints;
     public GameObject menu;
+    public PlayerProperty player;
+    public GameObject carCamera;
 
-    private void Start() {
+    private void Start()
+    {
 
         if (reconnectIfFails && !PhotonNetwork.IsConnectedAndReady)
             ConnectToPhoton();
         else if (PhotonNetwork.IsConnectedAndReady)
             menu.SetActive(true);
 
-    }
-
-    public void Spawn() {
 
         int actorNo = PhotonNetwork.LocalPlayer.ActorNumber;
 
-        if (actorNo > spawnPoints.Length) {
+        if (actorNo > spawnPoints.Length)
+        {
+
+            while (actorNo > spawnPoints.Length)
+                actorNo -= spawnPoints.Length;
+
+        }
+
+        Vector3 playerPos = Vector3.zero;
+        playerPos = spawnPoints[actorNo - 1].position;
+
+        carCamera.SetActive(false);
+        player = PhotonNetwork.Instantiate("Player", playerPos, Quaternion.identity, 0).GetComponent<PlayerProperty>();
+
+
+    }
+
+
+    public void Spawn()
+    {
+
+        int actorNo = PhotonNetwork.LocalPlayer.ActorNumber;
+
+        if (actorNo > spawnPoints.Length)
+        {
 
             while (actorNo > spawnPoints.Length)
                 actorNo -= spawnPoints.Length;
@@ -56,14 +82,16 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
 
         RCC_CarControllerV3 newVehicle;
 
-        if (RCC_SceneManager.Instance.activePlayerVehicle) {
+        if (RCC_SceneManager.Instance.activePlayerVehicle)
+        {
 
             lastKnownPos = RCC_SceneManager.Instance.activePlayerVehicle.transform.position;
             lastKnownRot = RCC_SceneManager.Instance.activePlayerVehicle.transform.rotation;
 
         }
 
-        if (lastKnownPos == Vector3.zero) {
+        if (lastKnownPos == Vector3.zero)
+        {
 
             lastKnownPos = spawnPoints[actorNo - 1].position;
             lastKnownRot = spawnPoints[actorNo - 1].rotation;
@@ -90,7 +118,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
     /// Selects the vehicle.
     /// </summary>
     /// <param name="index">Index.</param>
-    public void SelectVehicle(int index) {
+    public void SelectVehicle(int index)
+    {
 
         selectedCarIndex = index;
 
@@ -100,7 +129,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
     /// An integer index value used for setting behavior mode.
     /// </summary>
     /// <param name="index"></param>
-    public void SetBehavior(int index) {
+    public void SetBehavior(int index)
+    {
 
         selectedBehaviorIndex = index;
 
@@ -109,7 +139,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
     /// <summary>
     /// Here we are setting new selected behavior to corresponding one.
     /// </summary>
-    public void InitBehavior() {
+    public void InitBehavior()
+    {
 
         RCC.SetBehavior(selectedBehaviorIndex);
 
@@ -119,9 +150,11 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
     /// Sets the mobile controller type.
     /// </summary>
     /// <param name="index"></param>
-    public void SetMobileController(int index) {
+    public void SetMobileController(int index)
+    {
 
-        switch (index) {
+        switch (index)
+        {
 
             case 0:
                 RCC.SetMobileController(RCC_Settings.MobileController.TouchScreen);
@@ -144,7 +177,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
     /// Sets the quality.
     /// </summary>
     /// <param name="index">Index.</param>
-    public void SetQuality(int index) {
+    public void SetQuality(int index)
+    {
 
         QualitySettings.SetQualityLevel(index);
 
@@ -153,7 +187,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
     /// <summary>
     /// Simply restarting the current scene.
     /// </summary>
-    public void RestartScene() {
+    public void RestartScene()
+    {
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
@@ -162,13 +197,15 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
     /// <summary>
     /// Simply quit application. Not working on Editor.
     /// </summary>
-    public void Quit() {
+    public void Quit()
+    {
 
         Application.Quit();
 
     }
 
-    private void ConnectToPhoton() {
+    private void ConnectToPhoton()
+    {
 
         Debug.Log("Connecting to server");
         connectedWithThis = true;
@@ -178,7 +215,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
 
     }
 
-    public override void OnConnectedToMaster() {
+    public override void OnConnectedToMaster()
+    {
 
         if (!connectedWithThis)
             return;
@@ -190,7 +228,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
 
     }
 
-    public override void OnJoinedLobby() {
+    public override void OnJoinedLobby()
+    {
 
         if (!connectedWithThis)
             return;
@@ -201,7 +240,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
 
     }
 
-    public override void OnJoinRandomFailed(short returnCode, string message) {
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
 
         if (!connectedWithThis)
             return;
@@ -215,7 +255,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
 
     }
 
-    public override void OnJoinedRoom() {
+    public override void OnJoinedRoom()
+    {
 
         if (!connectedWithThis)
             return;
@@ -225,7 +266,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks {
 
     }
 
-    public override void OnCreatedRoom() {
+    public override void OnCreatedRoom()
+    {
 
         if (!connectedWithThis)
             return;
