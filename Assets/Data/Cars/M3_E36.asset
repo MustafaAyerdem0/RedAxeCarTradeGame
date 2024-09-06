@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: M3_E36
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
+  <carIndex>k__BackingField: 1
   <MaxStackSize>k__BackingField: 100
   <Name>k__BackingField: M3_E36
   <Description>k__BackingField: dosta gider  :)

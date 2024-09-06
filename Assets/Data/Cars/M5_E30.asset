@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: M5_E30
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
+  <carIndex>k__BackingField: 2
   <MaxStackSize>k__BackingField: 100
   <Name>k__BackingField: M5_E30
   <Description>k__BackingField: kusursuz M5_E30  :)

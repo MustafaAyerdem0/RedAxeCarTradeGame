@@ -10,6 +10,9 @@ public class ItemSO : ScriptableObject
     [field: SerializeField]
     public bool IsStackable { get; set; }
 
+    [field: SerializeField]
+    public int carIndex { get; set; }
+
     public int ID => GetInstanceID();
 
     [field: SerializeField]

@@ -27,13 +27,26 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
     public bool reconnectIfFails = true;
     private bool connectedWithThis = false;
 
-    private int selectedCarIndex = 0;
+    public int selectedCarIndex = 0;
     private int selectedBehaviorIndex = 0;
 
     public Transform[] spawnPoints;
     public GameObject menu;
     private PlayerProperty player;
     public GameObject carCamera;
+    public static RCC_PhotonDemo instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     private void Start()
     {

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Skyline
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
+  <carIndex>k__BackingField: 5
   <MaxStackSize>k__BackingField: 100
   <Name>k__BackingField: Skyline
   <Description>k__BackingField: "\u015Fim\u015Feeeek  :)"

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Jeep
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
+  <carIndex>k__BackingField: 7
   <MaxStackSize>k__BackingField: 100
   <Name>k__BackingField: Jeep
   <Description>k__BackingField: "4x4 arazi arac\u0131  :)"

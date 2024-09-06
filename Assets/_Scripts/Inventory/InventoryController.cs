@@ -99,7 +99,9 @@ public class InventoryController : MonoBehaviour
         IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
         if (destroyableItem != null)
         {
-            inventoryData.RemoveItem(itemIndex, 1);
+            //! default    inventoryData.RemoveItem(itemIndex, 1);
+            RCC_PhotonDemo.instance.selectedCarIndex = inventoryItem.item.carIndex;
+            RCC_PhotonDemo.instance.Spawn();
         }
 
         IItemAction itemAction = inventoryItem.item as IItemAction;

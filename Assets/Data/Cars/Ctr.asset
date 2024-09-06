@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Ctr
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
+  <carIndex>k__BackingField: 3
   <MaxStackSize>k__BackingField: 100
   <Name>k__BackingField: Ctr
   <Description>k__BackingField: kusursuz CTR :)
