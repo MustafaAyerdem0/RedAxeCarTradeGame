@@ -32,7 +32,7 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
 
     public Transform[] spawnPoints;
     public GameObject menu;
-    public PlayerProperty player;
+    private PlayerProperty player;
     public GameObject carCamera;
 
     private void Start()
@@ -43,6 +43,11 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
         else if (PhotonNetwork.IsConnectedAndReady)
             menu.SetActive(true);
 
+
+    }
+
+    public void SpawnPlayer()
+    {
 
         int actorNo = PhotonNetwork.LocalPlayer.ActorNumber;
 
@@ -61,6 +66,17 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
         player = PhotonNetwork.Instantiate("Player", playerPos, Quaternion.identity, 0).GetComponent<PlayerProperty>();
 
 
+
+    }
+
+    // every 2 seconds perform the print()
+    private IEnumerator WaitAndPrint(float waitTime)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(waitTime);
+            print("WaitAndPrint " + Time.time);
+        }
     }
 
 
@@ -263,6 +279,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
 
         if (menu)
             menu.SetActive(true);
+
+        SpawnPlayer();
 
     }
 
