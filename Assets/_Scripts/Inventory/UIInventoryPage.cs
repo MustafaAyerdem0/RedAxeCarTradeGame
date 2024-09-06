@@ -29,8 +29,8 @@ public class UIInventoryPage : MonoBehaviour
 
     public event Action<int, int> OnSwapItems;
 
-    // [SerializeField]
-    // private ItemActionPanel actionPanel;
+    [SerializeField]
+    private ItemActionPanel actionPanel;
 
     private void Awake()
     {
@@ -155,13 +155,13 @@ public class UIInventoryPage : MonoBehaviour
 
     public void AddAction(string actionName, Action performAction)
     {
-        // actionPanel.AddButon(actionName, performAction);
+        actionPanel.AddButon(actionName, performAction);
     }
 
     public void ShowItemAction(int itemIndex)
     {
-        // actionPanel.Toggle(true);
-        // actionPanel.transform.position = listOfUIItems[itemIndex].transform.position;
+        actionPanel.Toggle(true);
+        actionPanel.transform.position = listOfUIItems[itemIndex].transform.position;
     }
 
     private void DeselectAllItems()
@@ -170,13 +170,13 @@ public class UIInventoryPage : MonoBehaviour
         {
             item.Deselect();
         }
-        // actionPanel.Toggle(false);
+        actionPanel.Toggle(false);
     }
 
 
     public void Hide()
     {
-        // actionPanel.Toggle(false);
+        actionPanel.Toggle(false);
         gameObject.SetActive(false);
         ResetDraggedItem();
     }

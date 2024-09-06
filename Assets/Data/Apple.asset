@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de320cceb9db9d40974096998d1b440, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
-  <IsStackable>k__BackingField: 0
-  <MaxStackSize>k__BackingField: 1
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 0}
+  <IsStackable>k__BackingField: 1
+  <MaxStackSize>k__BackingField: 100
+  <Name>k__BackingField: Elma
+  <Description>k__BackingField: Elmaaaaa
+  <ItemImage>k__BackingField: {fileID: 14099669, guid: efeb60f8740a06844b8fa599a0f6cdb6, type: 3}
   <DefaultParametersList>k__BackingField: []
   modifiersData: []
   <actionSFX>k__BackingField: {fileID: 0}

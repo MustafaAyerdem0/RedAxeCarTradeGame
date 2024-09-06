@@ -17,6 +17,4 @@ MonoBehaviour:
   <Name>k__BackingField: Bmw
   <Description>k__BackingField: bmwww
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 10470e72a59dcee4a91307f01eb8cc30, type: 3}
-  <DefaultParametersList>k__BackingField:
-  - itemParameter: {fileID: 11400000, guid: 64135d3ee86b05f439936ec710a7f178, type: 2}
-    value: 20
+  <DefaultParametersList>k__BackingField: []
