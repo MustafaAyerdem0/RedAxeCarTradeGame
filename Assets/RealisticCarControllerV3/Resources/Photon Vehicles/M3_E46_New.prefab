@@ -8751,6 +8751,7 @@ GameObject:
   - component: {fileID: 8573549317866990241}
   - component: {fileID: 8573549317866990254}
   - component: {fileID: 8573549317866990255}
+  - component: {fileID: 7975023008735760695}
   m_Layer: 0
   m_Name: HeadLight
   m_TagString: Untagged
@@ -8881,6 +8882,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 1286
   m_Directional: 0
+--- !u!114 &7975023008735760695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573549317866990253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &8573549318029205823
 GameObject:
   m_ObjectHideFlags: 0
@@ -13633,6 +13654,7 @@ GameObject:
   - component: {fileID: 8573549318223717691}
   - component: {fileID: 8573549318223717688}
   - component: {fileID: 8573549318223717689}
+  - component: {fileID: 4251444528632267124}
   m_Layer: 0
   m_Name: HeadLight_D_D_D
   m_TagString: Untagged
@@ -13763,6 +13785,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 1286
   m_Directional: 0
+--- !u!114 &4251444528632267124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573549318223717639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &8573549318241901416
 GameObject:
   m_ObjectHideFlags: 0
@@ -13775,6 +13817,7 @@ GameObject:
   - component: {fileID: 8573549318241901420}
   - component: {fileID: 8573549318241901421}
   - component: {fileID: 8573549318241901418}
+  - component: {fileID: 6127136035860378776}
   m_Layer: 0
   m_Name: BrakeLight
   m_TagString: Untagged
@@ -13905,6 +13948,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 1286
   m_Directional: 0
+--- !u!114 &6127136035860378776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573549318241901416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &8573549318274349121
 GameObject:
   m_ObjectHideFlags: 0
@@ -14022,6 +14085,7 @@ GameObject:
   - component: {fileID: 8573549318286946547}
   - component: {fileID: 8573549318286946544}
   - component: {fileID: 8573549318286946545}
+  - component: {fileID: 4691523458012866252}
   m_Layer: 0
   m_Name: BrakeLight_D
   m_TagString: Untagged
@@ -14152,6 +14216,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 1286
   m_Directional: 0
+--- !u!114 &4691523458012866252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573549318286946559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &8573549318294148233
 GameObject:
   m_ObjectHideFlags: 0
@@ -14195,6 +14279,7 @@ GameObject:
   - component: {fileID: 8573549318351670722}
   - component: {fileID: 8573549318351670723}
   - component: {fileID: 8573549318351670720}
+  - component: {fileID: 5067299497315380926}
   m_Layer: 0
   m_Name: IndicatorLight_D (1)
   m_TagString: Untagged
@@ -14325,6 +14410,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 1286
   m_Directional: 0
+--- !u!114 &5067299497315380926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573549318351670734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &8573549318363046129
 GameObject:
   m_ObjectHideFlags: 0
@@ -24344,6 +24449,7 @@ GameObject:
   - component: {fileID: 8573549319358801861}
   - component: {fileID: 8573549319358801858}
   - component: {fileID: 8573549319358801859}
+  - component: {fileID: 1731533605965190159}
   m_Layer: 0
   m_Name: IndicatorLight
   m_TagString: Untagged
@@ -24474,6 +24580,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 1286
   m_Directional: 0
+--- !u!114 &1731533605965190159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573549319358801857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &8573549319375377852
 GameObject:
   m_ObjectHideFlags: 0
@@ -24517,6 +24643,7 @@ GameObject:
   - component: {fileID: 8573549319410810730}
   - component: {fileID: 8573549319410810731}
   - component: {fileID: 8573549319410810728}
+  - component: {fileID: 1157107009473016851}
   m_Layer: 0
   m_Name: ReverseLight
   m_TagString: Untagged
@@ -24642,6 +24769,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 1286
   m_Directional: 0
+--- !u!114 &1157107009473016851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573549319410810742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &8573549319429191366
 GameObject:
   m_ObjectHideFlags: 0
@@ -24654,6 +24801,7 @@ GameObject:
   - component: {fileID: 8573549319429191418}
   - component: {fileID: 8573549319429191419}
   - component: {fileID: 8573549319429191416}
+  - component: {fileID: 2144306630104876861}
   m_Layer: 0
   m_Name: HeadLight_D
   m_TagString: Untagged
@@ -24784,6 +24932,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 1286
   m_Directional: 0
+--- !u!114 &2144306630104876861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573549319429191366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &8573549319431884798
 GameObject:
   m_ObjectHideFlags: 0
@@ -24855,7 +25023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25271813931d814680ab7c84ef90710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canControl: 1
+  canControl: 0
   isGrounded: 0
   overrideBehavior: 0
   overrideInputs: 0
@@ -25358,6 +25526,7 @@ GameObject:
   - component: {fileID: 8573549319547485058}
   - component: {fileID: 8573549319547485059}
   - component: {fileID: 8573549319547485056}
+  - component: {fileID: 6884050778165548005}
   m_Layer: 0
   m_Name: ReverseLight_D
   m_TagString: Untagged
@@ -25483,6 +25652,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 1286
   m_Directional: 0
+--- !u!114 &6884050778165548005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573549319547485070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &8573549319560890629
 GameObject:
   m_ObjectHideFlags: 0
@@ -25495,6 +25684,7 @@ GameObject:
   - component: {fileID: 8573549319560890681}
   - component: {fileID: 8573549319560890630}
   - component: {fileID: 8573549319560890631}
+  - component: {fileID: 2061783123709133982}
   m_Layer: 0
   m_Name: IndicatorLight_D (2)
   m_TagString: Untagged
@@ -25625,6 +25815,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 1286
   m_Directional: 0
+--- !u!114 &2061783123709133982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573549319560890629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &8573549319596376893
 GameObject:
   m_ObjectHideFlags: 0
@@ -25681,6 +25891,7 @@ GameObject:
   - component: {fileID: 8573549319602007856}
   - component: {fileID: 8573549319602007857}
   - component: {fileID: 8573549319602007870}
+  - component: {fileID: 6966714856574109215}
   m_Layer: 0
   m_Name: IndicatorLight_D
   m_TagString: Untagged
@@ -25811,6 +26022,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 1286
   m_Directional: 0
+--- !u!114 &6966714856574109215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573549319602007868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &8573549319622601075
 GameObject:
   m_ObjectHideFlags: 0
@@ -25928,6 +26159,7 @@ GameObject:
   - component: {fileID: 8573549319624979144}
   - component: {fileID: 8573549319624979145}
   - component: {fileID: 8573549319624979158}
+  - component: {fileID: 7603878913564154171}
   m_Layer: 0
   m_Name: HeadLight_D_D
   m_TagString: Untagged
@@ -26058,3 +26290,23 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 1286
   m_Directional: 0
+--- !u!114 &7603878913564154171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573549319624979156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}

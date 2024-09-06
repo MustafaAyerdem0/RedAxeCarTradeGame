@@ -17,13 +17,16 @@ using UnityEngine.UI;
 /// </summary>
 [AddComponentMenu("BoneCracker Games/Realistic Car Controller/UI/RCC UI Dashboard Displayer")]
 [RequireComponent(typeof(RCC_DashboardInputs))]
-public class RCC_UIDashboardDisplay : MonoBehaviour {
+public class RCC_UIDashboardDisplay : MonoBehaviour
+{
 
     //  Inputs of the dashboard elements.
     private RCC_DashboardInputs inputs;
-    private RCC_DashboardInputs Inputs {
+    private RCC_DashboardInputs Inputs
+    {
 
-        get {
+        get
+        {
 
             if (inputs == null)
                 inputs = GetComponent<RCC_DashboardInputs>();
@@ -71,13 +74,15 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
     [Header("Dropdowns")]
     public Dropdown mobileControllersDropdown;
 
-    private void Update() {
+    private void Update()
+    {
 
         if (mobileControllersDropdown)
             mobileControllersDropdown.interactable = RCC_Settings.Instance.mobileControllerEnabled;
 
         //  Enabling / disabling corresponding elements related to choosen display type.
-        switch (displayType) {
+        switch (displayType)
+        {
 
             case DisplayType.Full:
 
@@ -87,8 +92,8 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
                 if (controllerButtons && !controllerButtons.activeSelf)
                     controllerButtons.SetActive(true);
 
-                if (gauges && !gauges.activeSelf)
-                    gauges.SetActive(true);
+                // if (gauges && !gauges.activeSelf)
+                //     gauges.SetActive(true);
 
                 if (customizationMenu && customizationMenu.activeSelf)
                     customizationMenu.SetActive(false);
@@ -103,8 +108,8 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
                 if (controllerButtons && controllerButtons.activeSelf)
                     controllerButtons.SetActive(false);
 
-                if (gauges && gauges.activeSelf)
-                    gauges.SetActive(false);
+                // if (gauges && gauges.activeSelf)
+                //     gauges.SetActive(false);
 
                 if (customizationMenu && !customizationMenu.activeSelf)
                     customizationMenu.SetActive(true);
@@ -119,8 +124,8 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
                 if (controllerButtons.activeSelf)
                     controllerButtons.SetActive(false);
 
-                if (gauges.activeSelf)
-                    gauges.SetActive(false);
+                // if (gauges.activeSelf)
+                //     gauges.SetActive(false);
 
                 if (customizationMenu.activeSelf)
                     customizationMenu.SetActive(false);
@@ -135,8 +140,8 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
                 if (controllerButtons && controllerButtons.activeSelf)
                     controllerButtons.SetActive(false);
 
-                if (gauges && gauges.activeSelf)
-                    gauges.SetActive(false);
+                // if (gauges && gauges.activeSelf)
+                //     gauges.SetActive(false);
 
                 if (customizationMenu && customizationMenu.activeSelf)
                     customizationMenu.SetActive(false);
@@ -147,7 +152,8 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
 
     }
 
-    private void LateUpdate() {
+    private void LateUpdate()
+    {
 
         //  If inputs are not enabled yet, disable it and return.
         if (!Inputs.enabled)
@@ -164,7 +170,8 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
         if (RPMLabel)
             RPMLabel.text = Inputs.RPM.ToString("0");
 
-        if (KMHLabel) {
+        if (KMHLabel)
+        {
 
             if (RCC_Settings.Instance.units == RCC_Settings.Units.KMH)
                 KMHLabel.text = Inputs.KMH.ToString("0") + "\nKMH";
@@ -173,7 +180,8 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
 
         }
 
-        if (GearLabel) {
+        if (GearLabel)
+        {
 
             if (!Inputs.NGear && !Inputs.changingGear)
                 GearLabel.text = Inputs.direction == 1 ? (Inputs.Gear + 1).ToString("0") : "R";
@@ -182,9 +190,11 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
 
         }
 
-        if (recordingLabel) {
+        if (recordingLabel)
+        {
 
-            switch (RCC_SceneManager.Instance.recordMode) {
+            switch (RCC_SceneManager.Instance.recordMode)
+            {
 
                 case RCC_SceneManager.RecordMode.Neutral:
 
@@ -220,7 +230,7 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
         }
 
         if (ABS)
-            ABS.color = Inputs.ABS == true ?  color_On : color_Off;
+            ABS.color = Inputs.ABS == true ? color_On : color_Off;
 
         if (ESP)
             ESP.color = Inputs.ESP == true ? color_On : color_Off;
@@ -240,9 +250,11 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
         if (rpmIndicator)
             rpmIndicator.color = vehicle.engineRPM >= RCC_SceneManager.Instance.activePlayerVehicle.maxEngineRPM - 500f ? Color.red : new Color(.1f, 0f, 0f);
 
-        if (leftIndicator && rightIndicator) {
+        if (leftIndicator && rightIndicator)
+        {
 
-            switch (Inputs.indicators) {
+            switch (Inputs.indicators)
+            {
 
                 case RCC_CarControllerV3.IndicatorsOn.Left:
                     leftIndicator.color = new Color(1f, .5f, 0f);
@@ -267,7 +279,8 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
 
     }
 
-    public void SetDisplayType(DisplayType _displayType) {
+    public void SetDisplayType(DisplayType _displayType)
+    {
 
         displayType = _displayType;
 

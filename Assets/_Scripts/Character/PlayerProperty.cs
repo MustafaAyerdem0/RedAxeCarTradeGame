@@ -7,6 +7,8 @@ using UnityEngine;
 public class PlayerProperty : MonoBehaviourPunCallbacks
 {
     public GameObject cinemacineVirtualCam;
+    public GameObject cinemacineBrain;
+    public GameObject skinMesh;
 
     private void Start()
     {
@@ -23,6 +25,7 @@ public class PlayerProperty : MonoBehaviourPunCallbacks
         else
         {
             cinemacineVirtualCam.SetActive(false);
+            cinemacineBrain.SetActive(false);
             GetComponent<ThirdPersonController>().enabled = false;
         }
     }

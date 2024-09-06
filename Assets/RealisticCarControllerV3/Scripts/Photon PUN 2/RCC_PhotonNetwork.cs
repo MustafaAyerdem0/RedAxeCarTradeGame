@@ -20,7 +20,8 @@ using Photon.Pun;
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(RCC_CarControllerV3))]
 [AddComponentMenu("BoneCracker Games/Realistic Car Controller/Network/Photon/RCC Photon Network")]
-public class RCC_PhotonNetwork : Photon.Pun.MonoBehaviourPunCallbacks, IPunObservable {
+public class RCC_PhotonNetwork : Photon.Pun.MonoBehaviourPunCallbacks, IPunObservable
+{
 
     public bool connected = false;
     public bool isMine = false;
@@ -62,7 +63,8 @@ public class RCC_PhotonNetwork : Photon.Pun.MonoBehaviourPunCallbacks, IPunObser
     // For Nickname Text
     private TextMesh nicknameText;
 
-    private void Start() {
+    private void Start()
+    {
 
         // Getting RCC, Rigidbody. 
         carController = GetComponent<RCC_CarControllerV3>();
@@ -90,7 +92,8 @@ public class RCC_PhotonNetwork : Photon.Pun.MonoBehaviourPunCallbacks, IPunObser
 
     }
 
-    private void GetValues() {
+    private void GetValues()
+    {
 
         correctPlayerPos = transform.position;
         correctPlayerRot = transform.rotation;
@@ -114,7 +117,8 @@ public class RCC_PhotonNetwork : Photon.Pun.MonoBehaviourPunCallbacks, IPunObser
 
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
 
         if (!PhotonNetwork.IsConnectedAndReady)
             return;
@@ -124,25 +128,30 @@ public class RCC_PhotonNetwork : Photon.Pun.MonoBehaviourPunCallbacks, IPunObser
 
         isMine = photonView.IsMine;
 
-        if (photonView.OwnershipTransfer == OwnershipOption.Fixed) {
+        if (photonView.OwnershipTransfer == OwnershipOption.Fixed)
+        {
 
             // If we are the owner of this vehicle, disable external controller and enable controller of the vehicle. Do opposite if we don't own this.
-            carController.externalController = !isMine;
-            carController.canControl = isMine;
+            // carController.externalController = !isMine;
+            // carController.canControl = isMine;
 
         }
 
         // If we are not owner of this vehicle, receive all inputs from server.
-        if (!isMine) {
+        if (!isMine)
+        {
 
             Vector3 projectedPosition = this.correctPlayerPos + currentVelocity * (Time.time - updateTime);
 
-            if (Vector3.Distance(transform.position, correctPlayerPos) < 15f) {
+            if (Vector3.Distance(transform.position, correctPlayerPos) < 15f)
+            {
 
                 transform.position = Vector3.Lerp(transform.position, projectedPosition, Time.deltaTime * 5f);
                 transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5f);
 
-            } else {
+            }
+            else
+            {
 
                 transform.position = correctPlayerPos;
                 transform.rotation = correctPlayerRot;
@@ -171,14 +180,17 @@ public class RCC_PhotonNetwork : Photon.Pun.MonoBehaviourPunCallbacks, IPunObser
             else
                 nicknameText.text = "";
 
-            if (RCC_SceneManager.Instance.activeMainCamera) {
+            if (RCC_SceneManager.Instance.activeMainCamera)
+            {
 
                 nicknameText.transform.LookAt(RCC_SceneManager.Instance.activeMainCamera.transform);
                 nicknameText.transform.rotation = Quaternion.Euler(nicknameText.transform.eulerAngles.x, nicknameText.transform.eulerAngles.y + 180f, nicknameText.transform.eulerAngles.z);
 
             }
 
-        } else {
+        }
+        else
+        {
 
             if (nicknameText)
                 nicknameText.text = "";
@@ -187,13 +199,15 @@ public class RCC_PhotonNetwork : Photon.Pun.MonoBehaviourPunCallbacks, IPunObser
 
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
 
         if (!carController)
             return;
 
         // Sending all inputs, position, rotation, and velocity to the server.
-        if (stream.IsWriting) {
+        if (stream.IsWriting)
+        {
 
             //We own this player: send the others our data
             stream.SendNext(carController.throttleInput);
@@ -217,7 +231,9 @@ public class RCC_PhotonNetwork : Photon.Pun.MonoBehaviourPunCallbacks, IPunObser
             stream.SendNext(transform.rotation);
             stream.SendNext(rigid.velocity);
 
-        } else {
+        }
+        else
+        {
 
             // Network player, receiving all inputs, position, rotation, and velocity from server. 
             gasInput = (float)stream.ReceiveNext();

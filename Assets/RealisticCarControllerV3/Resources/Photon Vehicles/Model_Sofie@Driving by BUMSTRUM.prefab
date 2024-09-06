@@ -721,6 +721,7 @@ GameObject:
   - component: {fileID: 10816896}
   - component: {fileID: 11428574}
   - component: {fileID: 123663726498822592}
+  - component: {fileID: 1280017702902646299}
   m_Layer: 8
   m_Name: Headlight
   m_TagString: Player
@@ -846,6 +847,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 3334
   m_Directional: 0
+--- !u!114 &1280017702902646299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &113828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,6 +1069,7 @@ GameObject:
   - component: {fileID: 10859038}
   - component: {fileID: 11455506}
   - component: {fileID: 123479962774005716}
+  - component: {fileID: 469313991199786070}
   m_Layer: 8
   m_Name: BrakeLight
   m_TagString: Player
@@ -1173,6 +1195,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 3334
   m_Directional: 0
+--- !u!114 &469313991199786070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &120880
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,6 +2319,7 @@ GameObject:
   - component: {fileID: 10851932}
   - component: {fileID: 11422170}
   - component: {fileID: 123419516850493230}
+  - component: {fileID: 2887116000815553075}
   m_Layer: 8
   m_Name: BrakeLight
   m_TagString: Player
@@ -2402,6 +2445,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 3334
   m_Directional: 0
+--- !u!114 &2887116000815553075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &145904
 GameObject:
   m_ObjectHideFlags: 0
@@ -4027,7 +4090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25271813931d814680ab7c84ef90710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canControl: 1
+  canControl: 0
   isGrounded: 0
   overrideBehavior: 0
   overrideInputs: 0
@@ -4768,6 +4831,7 @@ GameObject:
   - component: {fileID: 10848458}
   - component: {fileID: 11443122}
   - component: {fileID: 123157350675112674}
+  - component: {fileID: 298565673067405175}
   m_Layer: 8
   m_Name: Headlight
   m_TagString: Player
@@ -4893,6 +4957,26 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 3334
   m_Directional: 0
+--- !u!114 &298565673067405175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &187438
 GameObject:
   m_ObjectHideFlags: 0

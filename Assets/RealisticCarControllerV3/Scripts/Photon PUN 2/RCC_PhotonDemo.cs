@@ -128,6 +128,10 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
         if (RCC_SceneManager.Instance.activePlayerCamera)
             RCC_SceneManager.Instance.activePlayerCamera.SetTarget(newVehicle);
 
+
+        newVehicle.externalController = false;
+        newVehicle.canControl = false;
+
     }
 
     /// <summary>
