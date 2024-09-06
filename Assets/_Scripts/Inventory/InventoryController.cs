@@ -147,11 +147,11 @@ public class InventoryController : MonoBehaviour
         StringBuilder sb = new StringBuilder();
         sb.Append(inventoryItem.item.Description);
         sb.AppendLine();
+        sb.AppendLine();
         for (int i = 0; i < inventoryItem.itemState.Count; i++)
         {
             sb.Append($"{inventoryItem.itemState[i].itemParameter.ParameterName} " +
-                $": {inventoryItem.itemState[i].value} / " +
-                $"{inventoryItem.item.DefaultParametersList[i].value}");
+                $": {inventoryItem.itemState[i].value}");
             sb.AppendLine();
         }
         return sb.ToString();

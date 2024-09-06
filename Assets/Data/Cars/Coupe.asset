@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de320cceb9db9d40974096998d1b440, type: 3}
+  m_Name: Coupe
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackSize>k__BackingField: 100
+  <Name>k__BackingField: Coupe
+  <Description>k__BackingField: kusursuz coupe  :)
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 1525b4131b1093943a6f01ada1251400, type: 3}
+  <DefaultParametersList>k__BackingField:
+  - itemParameter: {fileID: 11400000, guid: 3bf2ad06ba5098a48a513de6ce3b1231, type: 2}
+    value: 400
+  - itemParameter: {fileID: 11400000, guid: 88ebfb8da95296e4e90fef532b6cf708, type: 2}
+    value: 3000
+  - itemParameter: {fileID: 11400000, guid: c03740775593e9d49a0f10b60a47f130, type: 2}
+    value: 260
+  - itemParameter: {fileID: 11400000, guid: 739018e0a16997f4dad594045c35f99c, type: 2}
+    value: 40
+  - itemParameter: {fileID: 11400000, guid: 5a544529f842d59408a1ae7419c2cea8, type: 2}
+    value: 7500
+  - itemParameter: {fileID: 11400000, guid: 8b3f040e2e31cbf42a336319e28ee4fa, type: 2}
+    value: 0.2
+  modifiersData: []
+  <actionSFX>k__BackingField: {fileID: 0}
