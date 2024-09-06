@@ -49,6 +49,7 @@ public class RCC_UIDashboardDisplay : MonoBehaviour
     public GameObject controllerButtons;
     public GameObject gauges;
     public GameObject customizationMenu;
+    public GameObject DriveCarInfo;
 
     [Header("Texts")]
     public Text RPMLabel;

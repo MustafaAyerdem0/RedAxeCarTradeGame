@@ -42,6 +42,8 @@ MonoBehaviour:
   - RPCChat
   - GetInCarRPC
   - GetOutCarRPC
+  - SendTradeRequest
+  - TradeRequestResponse
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

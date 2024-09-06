@@ -109,6 +109,9 @@ public class DriveCar : MonoBehaviour
                 getOutCarAction?.Invoke();
                 inCar = false;
             }
+
+            if (isWithinDistance && !inCar) rCC_UIDashboardDisplay.DriveCarInfo.SetActive(true);
+            else rCC_UIDashboardDisplay.DriveCarInfo.SetActive(false);
         }
     }
 }
