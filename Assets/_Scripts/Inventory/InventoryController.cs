@@ -24,6 +24,8 @@ public class InventoryController : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
 
+    public bool isTradePage;
+
     private void Start()
     {
         PrepareUI();
@@ -161,10 +163,11 @@ public class InventoryController : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && !isTradePage)
         {
             if (inventoryUI.isActiveAndEnabled == false)
             {
+                Debug.Log("show");
                 inventoryUI.Show();
                 foreach (var item in inventoryData.GetCurrentInventoryState())
                 {

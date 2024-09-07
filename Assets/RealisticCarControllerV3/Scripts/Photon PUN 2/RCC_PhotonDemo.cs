@@ -53,8 +53,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
 
         if (reconnectIfFails && !PhotonNetwork.IsConnectedAndReady)
             ConnectToPhoton();
-        else if (PhotonNetwork.IsConnectedAndReady)
-            menu.SetActive(true);
+        //else if (PhotonNetwork.IsConnectedAndReady)
+        //menu.SetActive(true);
 
 
     }
@@ -294,8 +294,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
         if (!connectedWithThis)
             return;
 
-        if (menu)
-            menu.SetActive(true);
+        // if (menu)
+        // menu.SetActive(true);
 
         SpawnPlayer();
 
@@ -307,8 +307,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
         if (!connectedWithThis)
             return;
 
-        if (menu)
-            menu.SetActive(true);
+        // if (menu)
+        // menu.SetActive(true);
 
     }
 

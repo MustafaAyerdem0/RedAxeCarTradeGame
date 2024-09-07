@@ -32,11 +32,13 @@ public class UIInventoryPage : MonoBehaviour
     [SerializeField]
     private ItemActionPanel actionPanel;
 
+    public bool isTradePage;
+
     private void Awake()
     {
-        Hide();
+        if (!isTradePage) Hide();
         mouseFollower.Toggle(false);
-        itemDescription.ResetDescription();
+        itemDescription?.ResetDescription();
     }
 
     public void InitializeInventoryUI(int inventorysize)
@@ -143,6 +145,7 @@ public class UIInventoryPage : MonoBehaviour
 
     public void Show()
     {
+        Debug.Log("show2");
         gameObject.SetActive(true);
         ResetSelection();
     }
