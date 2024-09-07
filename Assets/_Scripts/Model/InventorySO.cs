@@ -122,6 +122,19 @@ namespace Inventory.Model
             }
         }
 
+        public void SplitItem(int itemIndex)
+        {
+            if (inventoryItems[itemIndex].quantity > 1)
+            {
+                // Orijinal slottaki miktarı 1 azalt
+                inventoryItems[itemIndex] = inventoryItems[itemIndex].ChangeQuantity(inventoryItems[itemIndex].quantity - 1);
+
+                // Boş bir slota 1 item yerleştir
+                AddItemToFirstFreeSlot(inventoryItems[itemIndex].item, 1, inventoryItems[itemIndex].itemState);
+                InformAboutChange(); // Envanterdeki değişikliği bildir
+            }
+        }
+
         public void AddItem(InventoryItem item)
         {
             AddItem(item.item, item.quantity);

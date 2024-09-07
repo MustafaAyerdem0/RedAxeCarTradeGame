@@ -76,9 +76,9 @@ public class InventoryController : MonoBehaviourPun
         IItemAction itemAction = inventoryItem.item as IItemAction;
         if (itemAction != null)
         {
-
             inventoryUI.ShowItemAction(itemIndex);
             inventoryUI.AddAction(itemAction.ActionName, () => PerformAction(itemIndex));
+            if (inventoryItem.quantity > 1) inventoryUI.AddAction("Split", () => SplitItem(itemIndex));
         }
 
         IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
@@ -87,6 +87,12 @@ public class InventoryController : MonoBehaviourPun
             inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity));
         }
 
+    }
+
+    public void SplitItem(int itemIndex)
+    {
+        inventoryData.SplitItem(itemIndex);
+        inventoryUI.ResetSelection();
     }
 
     private void DropItem(int itemIndex, int quantity)
