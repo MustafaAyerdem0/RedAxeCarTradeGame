@@ -35,6 +35,7 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
     private PlayerProperty player;
     public GameObject carCamera;
     public static RCC_PhotonDemo instance;
+    public GameObject ourPlayer;
 
     private void Awake()
     {
@@ -77,6 +78,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
 
         carCamera.SetActive(false);
         player = PhotonNetwork.Instantiate("Player", playerPos, Quaternion.identity, 0).GetComponent<PlayerProperty>();
+
+        if (player.GetComponent<PhotonView>().IsMine) ourPlayer = player.gameObject;
 
 
 
@@ -143,7 +146,8 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
 
 
         newVehicle.externalController = false;
-        newVehicle.canControl = false;
+        if (ourPlayer && ourPlayer.GetComponent<DriveCar>().inCar) newVehicle.canControl = true;
+        else newVehicle.canControl = false;
 
     }
 

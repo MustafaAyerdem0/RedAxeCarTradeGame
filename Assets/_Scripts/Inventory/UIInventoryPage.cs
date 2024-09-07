@@ -12,6 +12,9 @@ public class UIInventoryPage : MonoBehaviour
     [SerializeField]
     private RectTransform contentPanel;
 
+    [SerializeField]
+    private RectTransform tradeContentPanel;
+
     List<UIInventoryItem> listOfUIItems = new List<UIInventoryItem>();
 
     [SerializeField]
@@ -45,9 +48,9 @@ public class UIInventoryPage : MonoBehaviour
     {
         for (int i = 0; i < inventorysize; i++)
         {
-            UIInventoryItem uiItem =
-                Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
-            uiItem.transform.SetParent(contentPanel);
+            UIInventoryItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+            if (i < 9) uiItem.transform.SetParent(contentPanel);
+            else uiItem.transform.SetParent(tradeContentPanel);
             listOfUIItems.Add(uiItem);
             uiItem.OnItemClicked += HandleItemSelection;
             uiItem.OnItemBeginDrag += HandleBeginDrag;

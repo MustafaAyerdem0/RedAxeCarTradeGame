@@ -27,7 +27,8 @@ public class TradePopupManager : MonoBehaviourPun
     public void OnAccept()
     {
         // RPC ile kabul bilgisini hem isteği gönderen oyuncuya hem de hedef oyuncuya gönder
-        photonView.RPC("TradeRequestResponse", RpcTarget.All, senderName, true);
+        photonView.RPC("TradeRequestResponse", RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>().targetPhotonView.Owner, senderName, true);
+        TradeRequestResponse(senderName, true);
         tradePopup.SetActive(false); // Popup'ı kapat
     }
 
@@ -35,7 +36,8 @@ public class TradePopupManager : MonoBehaviourPun
     public void OnReject()
     {
         // RPC ile red bilgisini isteği gönderen oyuncuya gönder
-        photonView.RPC("TradeRequestResponse", RpcTarget.All, senderName, false);
+        photonView.RPC("TradeRequestResponse", RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>().targetPhotonView.Owner, senderName, false);
+        TradeRequestResponse(senderName, false);
         tradePopup.SetActive(false); // Popup'ı kapat
     }
 

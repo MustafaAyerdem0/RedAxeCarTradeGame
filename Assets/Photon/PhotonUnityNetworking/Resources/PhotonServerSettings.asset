@@ -44,6 +44,9 @@ MonoBehaviour:
   - GetOutCarRPC
   - SendTradeRequest
   - TradeRequestResponse
+  - ExitTradeRPC
+  - ChangeMoneyRPC
+  - ConfirmTradeRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

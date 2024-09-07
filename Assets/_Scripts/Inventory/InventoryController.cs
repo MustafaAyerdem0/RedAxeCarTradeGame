@@ -5,13 +5,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Inventory.Model;
+using Photon.Pun;
 using UnityEngine;
 
 
-public class InventoryController : MonoBehaviour
+public class InventoryController : MonoBehaviourPun
 {
     [SerializeField]
     private UIInventoryPage inventoryUI;
+
+    [SerializeField]
+    private GameObject tradeWindow;
 
     [SerializeField]
     private InventorySO inventoryData;
@@ -132,6 +136,28 @@ public class InventoryController : MonoBehaviour
         inventoryData.SwapItems(itemIndex_1, itemIndex_2);
     }
 
+
+
+    public void ExitTrade()
+    {
+        photonView.RPC("ExitTradeRPC", RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>().targetPhotonView.Owner);
+        ExitTradeRPC();
+    }
+    [PunRPC]
+    public void ExitTradeRPC()
+    {
+        for (int i = 9; i < 13; i++)
+        {
+            InventoryItem inventoryItem = inventoryData.GetItemAt(i);
+            if (inventoryItem.IsEmpty) continue;
+            Debug.LogError("exitTrade");
+            DropItem(i, inventoryItem.quantity);
+            inventoryData.AddItem(inventoryItem);
+        }
+        tradeWindow.SetActive(false);
+
+    }
+
     private void HandleDescriptionRequest(int itemIndex)
     {
         InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
@@ -176,7 +202,7 @@ public class InventoryController : MonoBehaviour
                         item.Value.quantity);
                 }
             }
-            else
+            else if (!tradeWindow.activeSelf)
             {
                 inventoryUI.Hide();
             }

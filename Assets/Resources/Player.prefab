@@ -2193,6 +2193,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPlayer: {fileID: 0}
+  targetPlayerNickname: 
+  targetPhotonView: {fileID: 0}
 --- !u!1 &5715234066801484983
 GameObject:
   m_ObjectHideFlags: 0

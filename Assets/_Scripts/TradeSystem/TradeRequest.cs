@@ -7,8 +7,10 @@ using UnityEngine;
 public class TradeRequest : MonoBehaviourPun
 {
     public Transform targetPlayer; // Yakındaki hedef oyuncunun Transform'u
+    public string targetPlayerNickname; // Yakındaki hedef oyuncunun Transform'u
     float interactionRange = 10.0f; // Etkileşim mesafesi
-    private PhotonView targetPhotonView; // Hedef oyuncunun PhotonView'u
+    public PhotonView targetPhotonView; // Hedef oyuncunun PhotonView'u
+
 
     void Update()
     {
@@ -23,11 +25,12 @@ public class TradeRequest : MonoBehaviourPun
             {
                 // Hedef oyuncunun PhotonView'unu bul
                 targetPhotonView = targetPlayer.GetComponent<PhotonView>();
+                targetPlayerNickname = targetPhotonView.Owner.NickName;
 
                 if (targetPhotonView != null)
                 {
                     // Sadece hedef oyuncuya RPC ile ticaret isteği gönder
-                    photonView.RPC("SendTradeRequest", targetPhotonView.Owner, PhotonNetwork.NickName);
+                    photonView.RPC("SendTradeRequest", targetPhotonView.Owner, photonView.ViewID);
                     Debug.Log("Ticaret isteği " + targetPhotonView.Owner.NickName + " oyuncusuna gönderildi.");
                 }
             }
@@ -39,10 +42,15 @@ public class TradeRequest : MonoBehaviourPun
     }
 
     [PunRPC]
-    void SendTradeRequest(string senderName)
+    void SendTradeRequest(int viewID)
     {
+        Debug.LogError(viewID);
+        TradeRequest localTradeRequest = RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>();
+        localTradeRequest.targetPhotonView = PhotonView.Find(viewID).GetComponent<PhotonView>();
+        localTradeRequest.targetPlayer = localTradeRequest.targetPhotonView.transform;
+        localTradeRequest.targetPlayerNickname = localTradeRequest.targetPhotonView.Owner.NickName;
         // Hedef oyuncunun ekranına ticaret isteği popup'ı göster
-        TradePopupManager.Instance.ShowTradePopup(senderName);
+        TradePopupManager.Instance.ShowTradePopup(localTradeRequest.targetPlayerNickname);
     }
 
 
