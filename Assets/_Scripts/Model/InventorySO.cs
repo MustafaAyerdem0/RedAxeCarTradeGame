@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Inventory.Model
@@ -10,12 +11,13 @@ namespace Inventory.Model
     public class InventorySO : ScriptableObject
     {
         [SerializeField]
-        private List<InventoryItem> inventoryItems;
+        public List<InventoryItem> inventoryItems;
 
         [field: SerializeField]
         public int Size { get; private set; } = 10;
 
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
+        public event Action<int> OnTradeItemReplicated;
 
         public void Initialize()
         {
@@ -26,7 +28,7 @@ namespace Inventory.Model
             }
         }
 
-        public int AddItem(ItemSO item, int quantity, List<ItemParameter> itemState = null)
+        public int AddItem(ItemSO item, int quantity, List<ItemParameter> itemState = null, bool isTradeItem = false)
         {
             if (item.IsStackable == false)
             {
@@ -40,13 +42,14 @@ namespace Inventory.Model
                     return quantity;
                 }
             }
-            quantity = AddStackableItem(item, quantity);
+            if (isTradeItem) AddItemToFirstFreeSlot(item, quantity, null, 13);
+            else quantity = AddStackableItem(item, quantity);
             InformAboutChange();
             return quantity;
         }
 
         private int AddItemToFirstFreeSlot(ItemSO item, int quantity
-            , List<ItemParameter> itemState = null)
+            , List<ItemParameter> itemState = null, int firstIndex = 0)
         {
             InventoryItem newItem = new InventoryItem
             {
@@ -56,7 +59,7 @@ namespace Inventory.Model
                 new List<ItemParameter>(itemState == null ? item.DefaultParametersList : itemState)
             };
 
-            for (int i = 0; i < inventoryItems.Count; i++)
+            for (int i = firstIndex; i < inventoryItems.Count; i++)
             {
                 if (inventoryItems[i].IsEmpty)
                 {
@@ -137,7 +140,7 @@ namespace Inventory.Model
 
         public void AddItem(InventoryItem item)
         {
-            AddItem(item.item, item.quantity);
+            AddItem(item.item, item.quantity, null, false);
         }
 
         public Dictionary<int, InventoryItem> GetCurrentInventoryState()
@@ -165,9 +168,23 @@ namespace Inventory.Model
             inventoryItems[itemIndex_1] = inventoryItems[itemIndex_2];
             inventoryItems[itemIndex_2] = item1;
             InformAboutChange();
+
+            // if (itemIndex_2 > 8)
+            // {
+            //     TradeRequest localTradeRequest = RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>();
+            //     if (localTradeRequest.targetPhotonView)
+            //         localTradeRequest.GetComponent<PhotonView>().RPC("ExitTradeRPC", localTradeRequest.targetPhotonView.Owner, itemIndex_2);
+            // }
+
+            if (itemIndex_2 > 8)
+            {
+                // Burada artık direkt Photon RPC çağrısı yapılmıyor.
+                // Bunun yerine bir event ile MonoBehaviour'a haber veriliyor.
+                OnTradeItemReplicated?.Invoke(itemIndex_2);
+            }
         }
 
-        private void InformAboutChange()
+        public void InformAboutChange()
         {
             OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
         }

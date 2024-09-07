@@ -10,7 +10,7 @@ public class EdibleItemSO : ItemSO, IDestroyableItem, IItemAction
     [SerializeField]
     private List<ModifierData> modifiersData = new List<ModifierData>();
 
-    public string ActionName => "Consume";
+    public string ActionName => "Drive Car";
 
     [field: SerializeField]
     public AudioClip actionSFX { get; private set; }

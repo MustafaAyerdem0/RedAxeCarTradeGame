@@ -15,6 +15,9 @@ public class UIInventoryPage : MonoBehaviour
     [SerializeField]
     private RectTransform tradeContentPanel;
 
+    [SerializeField]
+    private RectTransform tradeOtherContentPanel;
+
     List<UIInventoryItem> listOfUIItems = new List<UIInventoryItem>();
 
     [SerializeField]
@@ -35,11 +38,8 @@ public class UIInventoryPage : MonoBehaviour
     [SerializeField]
     private ItemActionPanel actionPanel;
 
-    public bool isTradePage;
-
     private void Awake()
     {
-        if (!isTradePage) Hide();
         mouseFollower.Toggle(false);
         itemDescription?.ResetDescription();
     }
@@ -50,7 +50,8 @@ public class UIInventoryPage : MonoBehaviour
         {
             UIInventoryItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
             if (i < 9) uiItem.transform.SetParent(contentPanel);
-            else uiItem.transform.SetParent(tradeContentPanel);
+            else if (i < 13) uiItem.transform.SetParent(tradeContentPanel);
+            else uiItem.transform.SetParent(tradeOtherContentPanel);
             listOfUIItems.Add(uiItem);
             uiItem.OnItemClicked += HandleItemSelection;
             uiItem.OnItemBeginDrag += HandleBeginDrag;
@@ -103,10 +104,8 @@ public class UIInventoryPage : MonoBehaviour
     private void HandleSwap(UIInventoryItem inventoryItemUI)
     {
         int index = listOfUIItems.IndexOf(inventoryItemUI);
-        if (index == -1)
-        {
-            return;
-        }
+        if (index == -1 || index > 12) return;
+        else if ((TradeWindow.instance.ourToggle.isOn || TradeWindow.instance.otherToggle.isOn) && index > 8) return;
         OnSwapItems?.Invoke(currentlyDraggedItemIndex, index);
         HandleItemSelection(inventoryItemUI);
     }
@@ -120,8 +119,7 @@ public class UIInventoryPage : MonoBehaviour
     private void HandleBeginDrag(UIInventoryItem inventoryItemUI)
     {
         int index = listOfUIItems.IndexOf(inventoryItemUI);
-        if (index == -1)
-            return;
+        if (index == -1 || index > 8) return;
         currentlyDraggedItemIndex = index;
         HandleItemSelection(inventoryItemUI);
         OnStartDragging?.Invoke(index);

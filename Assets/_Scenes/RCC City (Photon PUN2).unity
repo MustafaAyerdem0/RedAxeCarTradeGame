@@ -4811,7 +4811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &362271449
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4887,6 +4887,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 7838870831158064561, guid: 43216600022607443b6fdbccb5ecf17f, type: 3}
   contentPanel: {fileID: 215794746}
   tradeContentPanel: {fileID: 6659432}
+  tradeOtherContentPanel: {fileID: 1494785007}
   itemDescription: {fileID: 21151379}
   mouseFollower: {fileID: 685156390}
   actionPanel: {fileID: 933158282}
@@ -27975,6 +27976,7 @@ MonoBehaviour:
   dropClip: {fileID: 0}
   audioSource: {fileID: 0}
   isTradePage: 1
+  edibleItemSos: []
 --- !u!4 &2022692260
 Transform:
   m_ObjectHideFlags: 0
@@ -28433,6 +28435,14 @@ MonoBehaviour:
   dropClip: {fileID: 0}
   audioSource: {fileID: 0}
   isTradePage: 0
+  edibleItemSos:
+  - {fileID: 11400000, guid: 40fb03e636edf7d4e881144c0aa29269, type: 2}
+  - {fileID: 11400000, guid: e72625798c4b1cb42abbe3eb6d151b6a, type: 2}
+  - {fileID: 11400000, guid: 16250273e2664e94c84bae4e981271dc, type: 2}
+  - {fileID: 11400000, guid: ed37b2f0b49090c46a7cf6092e461c84, type: 2}
+  - {fileID: 11400000, guid: deef9323016232b42bf63780eb975504, type: 2}
+  - {fileID: 11400000, guid: 844648885304a2c48bc14dba83eba480, type: 2}
+  - {fileID: 11400000, guid: 24b20ceb14f728846ae991056679265c, type: 2}
 --- !u!4 &2078598078
 Transform:
   m_ObjectHideFlags: 0

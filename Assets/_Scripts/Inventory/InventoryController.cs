@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Inventory.Model;
 using Photon.Pun;
@@ -29,11 +30,58 @@ public class InventoryController : MonoBehaviourPun
     private AudioSource audioSource;
 
     public bool isTradePage;
+    public EdibleItemSO[] edibleItemSos;
+
+    public static InventoryController instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     private void Start()
     {
         PrepareUI();
         PrepareInventoryData();
+    }
+
+
+    private void OnEnable()
+    {
+        // Event'e abone ol
+        inventoryData.OnTradeItemReplicated += HandleReplicateTradeItem;
+    }
+
+    private void OnDisable()
+    {
+        // Aboneliği kaldır
+        inventoryData.OnTradeItemReplicated -= HandleReplicateTradeItem;
+    }
+
+    private void HandleReplicateTradeItem(int itemIndex)
+    {
+        int edibleItemSoIndex = System.Array.IndexOf(edibleItemSos, inventoryData.inventoryItems[itemIndex].item);
+        TradeRequest localTradeRequest = RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>();
+        if (localTradeRequest.targetPhotonView)
+            photonView.RPC("ReplicateTradeItemRPC", localTradeRequest.targetPhotonView.Owner, itemIndex, edibleItemSoIndex, inventoryData.inventoryItems[itemIndex].quantity);
+    }
+
+    [PunRPC]
+    public void ReplicateTradeItemRPC(int itemIndex, int edibleItemSoIndex, int quantity)
+    {
+        InventoryItem inventoryItem = inventoryData.inventoryItems[itemIndex];
+        inventoryData.AddItem(edibleItemSos[edibleItemSoIndex], quantity, null, true);
+
+
+        //inventoryData.inventoryItems[itemIndex + 4] = inventoryData.inventoryItems[itemIndex];
+        //inventoryData.InformAboutChange();
     }
 
     private void PrepareInventoryData()
@@ -114,6 +162,7 @@ public class InventoryController : MonoBehaviourPun
             //! default    inventoryData.RemoveItem(itemIndex, 1);
             RCC_PhotonDemo.instance.selectedCarIndex = inventoryItem.item.carIndex;
             RCC_PhotonDemo.instance.Spawn();
+            inventoryUI.ResetSelection();
         }
 
         IItemAction itemAction = inventoryItem.item as IItemAction;
@@ -146,22 +195,52 @@ public class InventoryController : MonoBehaviourPun
 
     public void ExitTrade()
     {
-        photonView.RPC("ExitTradeRPC", RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>().targetPhotonView.Owner);
+        TradeRequest localTradeRequest = RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>();
+        if (localTradeRequest.targetPhotonView)
+            photonView.RPC("ExitTradeRPC", localTradeRequest.targetPhotonView.Owner);
         ExitTradeRPC();
     }
     [PunRPC]
     public void ExitTradeRPC()
     {
-        for (int i = 9; i < 13; i++)
+
+        if (TradeWindow.instance.ourToggle.isOn && TradeWindow.instance.otherToggle.isOn)
         {
-            InventoryItem inventoryItem = inventoryData.GetItemAt(i);
-            if (inventoryItem.IsEmpty) continue;
-            Debug.LogError("exitTrade");
-            DropItem(i, inventoryItem.quantity);
-            inventoryData.AddItem(inventoryItem);
+            for (int i = 9; i < 13; i++)
+            {
+                InventoryItem inventoryItem = inventoryData.GetItemAt(i);
+                if (inventoryItem.IsEmpty) continue;
+                Debug.LogError("exitTrade");
+                DropItem(i, inventoryItem.quantity);
+            }
+
+            for (int i = 13; i < 17; i++)
+            {
+                InventoryItem inventoryItem = inventoryData.GetItemAt(i);
+                if (inventoryItem.IsEmpty) continue;
+                DropItem(i, inventoryItem.quantity);
+                inventoryData.AddItem(inventoryItem);
+            }
+        }
+        else
+        {
+            for (int i = 9; i < 13; i++)
+            {
+                InventoryItem inventoryItem = inventoryData.GetItemAt(i);
+                if (inventoryItem.IsEmpty) continue;
+                Debug.LogError("exitTrade");
+                DropItem(i, inventoryItem.quantity);
+                inventoryData.AddItem(inventoryItem);
+            }
+
+            for (int i = 13; i < 17; i++)
+            {
+                InventoryItem inventoryItem = inventoryData.GetItemAt(i);
+                if (inventoryItem.IsEmpty) continue;
+                DropItem(i, inventoryItem.quantity);
+            }
         }
         tradeWindow.SetActive(false);
-
     }
 
     private void HandleDescriptionRequest(int itemIndex)
@@ -193,20 +272,26 @@ public class InventoryController : MonoBehaviourPun
         return sb.ToString();
     }
 
+    public void ShowInventory()
+    {
+        Debug.Log("show");
+        inventoryUI.Show();
+        foreach (var item in inventoryData.GetCurrentInventoryState())
+        {
+            inventoryUI.UpdateData(item.Key,
+                item.Value.item.ItemImage,
+                item.Value.quantity);
+        }
+
+    }
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab) && !isTradePage)
         {
             if (inventoryUI.isActiveAndEnabled == false)
             {
-                Debug.Log("show");
-                inventoryUI.Show();
-                foreach (var item in inventoryData.GetCurrentInventoryState())
-                {
-                    inventoryUI.UpdateData(item.Key,
-                        item.Value.item.ItemImage,
-                        item.Value.quantity);
-                }
+                ShowInventory();
             }
             else if (!tradeWindow.activeSelf)
             {

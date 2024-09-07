@@ -48,6 +48,7 @@ public class TradePopupManager : MonoBehaviourPun
         {
             // İstek kabul edildiyse her iki oyuncu için de ticaret penceresini aç
             TradeWindowManager.Instance.OpenTradeWindow(sender, PhotonNetwork.NickName);
+            InventoryController.instance.ShowInventory();
         }
         else
         {
