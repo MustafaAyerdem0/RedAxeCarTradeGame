@@ -57,7 +57,7 @@ public class DriveCar : MonoBehaviour
         rCC_UIDashboardDisplay.gauges.SetActive(true);
 
     }
-    private void GetOutCar()
+    public void GetOutCar()
     {
         photonView.RPC("GetOutCarRPC", RpcTarget.All);
         thirdPersonController.enabled = true;

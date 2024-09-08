@@ -131,22 +131,16 @@ public class UIInventoryPage : MonoBehaviour
         mouseFollower.SetData(sprite, quantity);
     }
 
-
-
-
     private void HandleItemSelection(UIInventoryItem inventoryItemUI)
     {
         int index = listOfUIItems.IndexOf(inventoryItemUI);
         if (index == -1)
             return;
         OnDescriptionRequested?.Invoke(index);
-
-        Debug.Log(inventoryItemUI.name); //!sil
     }
 
     public void Show()
     {
-        Debug.Log("show2");
         gameObject.SetActive(true);
         ResetSelection();
     }

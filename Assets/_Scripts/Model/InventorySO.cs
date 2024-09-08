@@ -132,12 +132,9 @@ namespace Inventory.Model
         {
             if (inventoryItems[itemIndex].quantity > 1 && !IsInventoryFull())
             {
-                // Orijinal slottaki miktarı 1 azalt
                 inventoryItems[itemIndex] = inventoryItems[itemIndex].ChangeQuantity(inventoryItems[itemIndex].quantity - 1);
-
-                // Boş bir slota 1 item yerleştir
                 AddItemToFirstFreeSlot(inventoryItems[itemIndex].item, 1, inventoryItems[itemIndex].itemState);
-                InformAboutChange(); // Envanterdeki değişikliği bildir
+                InformAboutChange();
             }
         }
 
@@ -171,18 +168,8 @@ namespace Inventory.Model
             inventoryItems[itemIndex_1] = inventoryItems[itemIndex_2];
             inventoryItems[itemIndex_2] = item1;
             InformAboutChange();
-
-            // if (itemIndex_2 > 8)
-            // {
-            //     TradeRequest localTradeRequest = RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>();
-            //     if (localTradeRequest.targetPhotonView)
-            //         localTradeRequest.GetComponent<PhotonView>().RPC("ExitTradeRPC", localTradeRequest.targetPhotonView.Owner, itemIndex_2);
-            // }
-
             if (itemIndex_2 > 8)
             {
-                // Burada artık direkt Photon RPC çağrısı yapılmıyor.
-                // Bunun yerine bir event ile MonoBehaviour'a haber veriliyor.
                 OnTradeItemReplicated?.Invoke(itemIndex_2);
             }
         }

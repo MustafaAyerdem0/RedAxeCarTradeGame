@@ -52,7 +52,6 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
 
     public void OnPointerClick(PointerEventData pointerData)
     {
-        Debug.LogError(pointerData.button);
         if (pointerData.button == PointerEventData.InputButton.Right)
         {
             OnRightMouseBtnClick?.Invoke(this);
@@ -70,7 +69,6 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.LogError("drag");
         if (empty)
             return;
         OnItemBeginDrag?.Invoke(this);
@@ -78,7 +76,6 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.LogError("drop");
         OnItemDroppedOn?.Invoke(this);
     }
 

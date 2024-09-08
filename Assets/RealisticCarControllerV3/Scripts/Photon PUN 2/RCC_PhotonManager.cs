@@ -16,7 +16,8 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
+public class RCC_PhotonManager : MonoBehaviourPunCallbacks
+{
 
     public static RCC_PhotonManager Instance;
 
@@ -26,8 +27,8 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
     public InputField nickPanel;
     public GameObject browseRoomsPanel;
     public GameObject roomsContent;
-    public GameObject chatLinesPanel;
-    public GameObject chatLinesContent;
+    // public GameObject chatLinesPanel;
+    // public GameObject chatLinesContent;
     public GameObject noRoomsYet;
     public GameObject createRoomButton;
     public GameObject exitRoomButton;
@@ -41,20 +42,25 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
 
     [Header("UI Prefabs")]
     public RCC_PhotonUIRoom roomPrefab;
-    public RCC_PhotonUIChatLine chatLinePrefab;
+    // public RCC_PhotonUIChatLine chatLinePrefab;
 
     //  Dictionaries for cached rooms and players.
     private Dictionary<string, RoomInfo> cachedRoomList;
     private Dictionary<string, GameObject> roomListEntries;
+    public bool gameStartedWithLobbyScene;
 
-    private void Awake() {
+    private void Awake()
+    {
 
-        if (Instance == null) {
+        if (Instance == null)
+        {
 
             Instance = this;
             DontDestroyOnLoad(transform.root.gameObject);
 
-        } else {
+        }
+        else
+        {
 
             Destroy(gameObject);
             return;
@@ -63,7 +69,8 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
 
     }
 
-    private void Start() {
+    private void Start()
+    {
 
         //  Initializing dictionaries.
         cachedRoomList = new Dictionary<string, RoomInfo>();
@@ -72,17 +79,25 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
         status.text = "Ready to connect";
         nickPanel.text = "New Player " + Random.Range(0, 99999).ToString();
 
+        // chatLinesPanel.SetActive(true);
+
+        gameStartedWithLobbyScene = true;
+
     }
 
-    private void Update() {
+    private void Update()
+    {
 
-        if (PhotonNetwork.IsConnected && PhotonNetwork.InLobby) {
+        if (PhotonNetwork.IsConnected && PhotonNetwork.InLobby)
+        {
 
             totalOnlinePlayers.text = "Total Online Players: " + PhotonNetwork.CountOfPlayers.ToString();
             totalRooms.text = "Total Online Rooms: " + PhotonNetwork.CountOfRooms.ToString();
             region.text = "Region: " + PhotonNetwork.CloudRegion.ToString();
 
-        } else {
+        }
+        else
+        {
 
             totalOnlinePlayers.text = "";
             totalRooms.text = "";
@@ -92,7 +107,8 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
 
     }
 
-    public void Connect() {
+    public void Connect()
+    {
 
         if (!PhotonNetwork.IsConnected)
             ConnectToServer();
@@ -101,7 +117,8 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
 
     }
 
-    private void ConnectToServer() {
+    private void ConnectToServer()
+    {
 
         Debug.Log(status.text);
         informer.text = status.text = "Connecting to server";
@@ -114,7 +131,8 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
 
     }
 
-    public override void OnConnectedToMaster() {
+    public override void OnConnectedToMaster()
+    {
 
         informer.text = "";
         Debug.Log("Connected to server");
@@ -127,7 +145,8 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
 
     }
 
-    public override void OnJoinedLobby() {
+    public override void OnJoinedLobby()
+    {
 
         Debug.Log("Entered to lobby");
         status.text = "Entered to lobby";
@@ -141,7 +160,8 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
 
     }
 
-    public override void OnJoinedRoom() {
+    public override void OnJoinedRoom()
+    {
 
         Debug.Log("Joined room");
         status.text = "Joined room";
@@ -149,7 +169,7 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
         browseRoomsPanel.SetActive(false);
         createRoomButton.SetActive(false);
         exitRoomButton.SetActive(true);
-        chatLinesPanel.SetActive(true);
+        //chatLinesPanel.SetActive(true);
 
         if (RCC_InfoLabel.Instance)
             RCC_InfoLabel.Instance.ShowInfo("Joined room, You can spawn your vehicle from 'Options' menu");
@@ -158,7 +178,8 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
 
     }
 
-    public override void OnCreatedRoom() {
+    public override void OnCreatedRoom()
+    {
 
         Debug.Log("Created room");
         status.text = "Created room";
@@ -166,12 +187,12 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
         browseRoomsPanel.SetActive(false);
         createRoomButton.SetActive(false);
         exitRoomButton.SetActive(true);
-        chatLinesPanel.SetActive(true);
+        //chatLinesPanel.SetActive(true);
 
         if (RCC_InfoLabel.Instance)
             RCC_InfoLabel.Instance.ShowInfo("Created room, You can spawn your vehicle from 'Options' menu");
 
-        LoadLevel(gameplaySceneName);
+        //LoadLevel(gameplaySceneName);
 
     }
 
@@ -179,7 +200,8 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
     /// When updated room list in the lobby.
     /// </summary>
     /// <param name="roomList"></param>
-    public override void OnRoomListUpdate(List<RoomInfo> roomList) {
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
 
         ClearRoomListView();
         UpdateCachedRoomList(roomList);
@@ -196,12 +218,15 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
     /// Updates cached room list.
     /// </summary>
     /// <param name="roomList"></param>
-    private void UpdateCachedRoomList(List<RoomInfo> roomList) {
+    private void UpdateCachedRoomList(List<RoomInfo> roomList)
+    {
 
-        foreach (RoomInfo info in roomList) {
+        foreach (RoomInfo info in roomList)
+        {
 
             // Remove room from cached room list if it got closed, became invisible or was marked as removed
-            if (!info.IsOpen || !info.IsVisible || info.RemovedFromList) {
+            if (!info.IsOpen || !info.IsVisible || info.RemovedFromList)
+            {
 
                 if (cachedRoomList.ContainsKey(info.Name))
                     cachedRoomList.Remove(info.Name);
@@ -224,9 +249,11 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
     /// Listing all rooms.
     /// </summary>
     /// <param name="roomList"></param>
-    private void UpdateRoomListView(List<RoomInfo> roomList) {
+    private void UpdateRoomListView(List<RoomInfo> roomList)
+    {
 
-        foreach (RoomInfo info in cachedRoomList.Values) {
+        foreach (RoomInfo info in cachedRoomList.Values)
+        {
 
             GameObject entry = Instantiate(roomPrefab.gameObject);
             entry.transform.SetParent(roomsContent.transform);
@@ -241,7 +268,8 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
     /// <summary>
     /// Clears the cache for room list.
     /// </summary>
-    private void ClearRoomListView() {
+    private void ClearRoomListView()
+    {
 
         foreach (GameObject entry in roomListEntries.Values)
             Destroy(entry.gameObject);
@@ -250,7 +278,8 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
 
     }
 
-    public void CreateRoom() {
+    public void CreateRoom()
+    {
 
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.IsOpen = true;
@@ -261,38 +290,44 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
 
     }
 
-    public void JoinSelectedRoom(RCC_PhotonUIRoom room) {
+    public void JoinSelectedRoom(RCC_PhotonUIRoom room)
+    {
 
         PhotonNetwork.JoinRoom(room.roomName.text);
 
     }
 
-    public void Chat(InputField inputField) {
+    // public void Chat(InputField inputField)
+    // {
+    //     TradeRequest localTradeRequest = RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>();
+    //     if (localTradeRequest.targetPhotonView)
+    //         photonView.RPC("RPCChat", localTradeRequest.targetPhotonView.Owner, PhotonNetwork.NickName, inputField.text);
+    //     RPCChat(PhotonNetwork.NickName, inputField.text);
+    // }
 
-        photonView.RPC("RPCChat", RpcTarget.AllBuffered, PhotonNetwork.NickName, inputField.text);
+    // [PunRPC]
+    // public void RPCChat(string nickName, string text)
+    // {
 
-    }
+    //     RCC_PhotonUIChatLine newChatLine = Instantiate(chatLinePrefab.gameObject, chatLinesContent.transform).GetComponent<RCC_PhotonUIChatLine>();
+    //     newChatLine.Line(nickName + " : " + text);
 
-    [PunRPC]
-    public void RPCChat(string nickName, string text) {
+    //     RCC_PhotonUIChatLine[] chatLines = chatLinesContent.GetComponentsInChildren<RCC_PhotonUIChatLine>();
 
-        RCC_PhotonUIChatLine newChatLine = Instantiate(chatLinePrefab.gameObject, chatLinesContent.transform).GetComponent<RCC_PhotonUIChatLine>();
-        newChatLine.Line(nickName + " : " + text);
+    //     if (chatLines.Length > 7)
+    //         Destroy(chatLines[0].gameObject);
 
-        RCC_PhotonUIChatLine[] chatLines = chatLinesContent.GetComponentsInChildren<RCC_PhotonUIChatLine>();
+    // }
 
-        if (chatLines.Length > 7)
-            Destroy(chatLines[0].gameObject);
-
-    }
-
-    public void ExitRoom() {
+    public void ExitRoom()
+    {
 
         PhotonNetwork.LeaveRoom();
 
     }
 
-    public override void OnLeftRoom() {
+    public override void OnLeftRoom()
+    {
 
         Debug.Log("Exited room");
         status.text = "Exited room";
@@ -300,17 +335,19 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
         browseRoomsPanel.SetActive(true);
         createRoomButton.SetActive(true);
         exitRoomButton.SetActive(false);
-        chatLinesPanel.SetActive(false);
+        // chatLinesPanel.SetActive(false);
 
     }
 
-    public void ExitLobby() {
+    public void ExitLobby()
+    {
 
         PhotonNetwork.LeaveLobby();
 
     }
 
-    public override void OnLeftLobby() {
+    public override void OnLeftLobby()
+    {
 
         Debug.Log("Exited to lobby");
         status.text = "Exited to lobby";
@@ -318,11 +355,12 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
         browseRoomsPanel.SetActive(false);
         createRoomButton.SetActive(false);
         exitRoomButton.SetActive(false);
-        chatLinesPanel.SetActive(false);
+        // chatLinesPanel.SetActive(false);
 
     }
 
-    public override void OnDisconnected(DisconnectCause cause) {
+    public override void OnDisconnected(DisconnectCause cause)
+    {
 
         Debug.Log("Disconnected");
         status.text = "Disconnected";
@@ -330,11 +368,12 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks {
         browseRoomsPanel.SetActive(false);
         createRoomButton.SetActive(false);
         exitRoomButton.SetActive(false);
-        chatLinesPanel.SetActive(false);
+        // chatLinesPanel.SetActive(false);
 
     }
 
-    public void LoadLevel(string level) {
+    public void LoadLevel(string level)
+    {
 
         PhotonNetwork.LoadLevel(level);
 

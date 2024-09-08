@@ -55,13 +55,11 @@ public class InventoryController : MonoBehaviourPun
 
     private void OnEnable()
     {
-        // Event'e abone ol
         inventoryData.OnTradeItemReplicated += HandleReplicateTradeItem;
     }
 
     private void OnDisable()
     {
-        // Aboneliği kaldır
         inventoryData.OnTradeItemReplicated -= HandleReplicateTradeItem;
     }
 
@@ -78,10 +76,6 @@ public class InventoryController : MonoBehaviourPun
     {
         InventoryItem inventoryItem = inventoryData.inventoryItems[itemIndex];
         inventoryData.AddItem(edibleItemSos[edibleItemSoIndex], quantity, null, true);
-
-
-        //inventoryData.inventoryItems[itemIndex + 4] = inventoryData.inventoryItems[itemIndex];
-        //inventoryData.InformAboutChange();
     }
 
     private void PrepareInventoryData()
@@ -173,17 +167,33 @@ public class InventoryController : MonoBehaviourPun
             if (inventoryData.GetItemAt(itemIndex).IsEmpty)
                 inventoryUI.ResetSelection();
         }
+
+
+    }
+
+    public void CheckHaveCarInInventory()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            InventoryItem inventoryItem = inventoryData.GetItemAt(i);
+            if (!inventoryItem.IsEmpty && inventoryItem.item.carIndex == RCC_PhotonDemo.instance.selectedCarIndex) return;
+        }
+
+        if (RCC_SceneManager.Instance.activePlayerVehicle)
+        {
+            DriveCar driveCar = RCC_PhotonDemo.instance.ourPlayer.GetComponent<DriveCar>();
+            if (driveCar.inCar) driveCar.GetOutCar();
+            PhotonNetwork.Destroy(RCC_SceneManager.Instance.activePlayerVehicle.gameObject);
+        }
+
     }
 
     private void HandleDragging(int itemIndex)
     {
-        Debug.LogError("test1");
         InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
         if (inventoryItem.IsEmpty)
             return;
         inventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity);
-        Debug.LogError("test2");
-
     }
 
     private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
@@ -207,12 +217,14 @@ public class InventoryController : MonoBehaviourPun
         {
             OnTradeAcceptedOrRejected(9, 13, false);
             OnTradeAcceptedOrRejected(13, 17, true);
+            CheckHaveCarInInventory();
         }
         else
         {
             OnTradeAcceptedOrRejected(9, 13, true);
             OnTradeAcceptedOrRejected(13, 17, false);
         }
+
         tradeWindow.SetActive(false);
     }
 
@@ -259,7 +271,6 @@ public class InventoryController : MonoBehaviourPun
 
     public void ShowInventory()
     {
-        Debug.Log("show");
         inventoryUI.Show();
         foreach (var item in inventoryData.GetCurrentInventoryState())
         {

@@ -16,6 +16,8 @@ using Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using StarterAssets;
+using UnityEngine.UI;
+using UnityEditor.UIElements;
 
 /// <summary>
 /// A simple manager script for photon demo scene. It has an array of networked spawnable player vehicles, public methods, restart, and quit application.
@@ -26,16 +28,25 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
 
     public bool reconnectIfFails = true;
     private bool connectedWithThis = false;
-
+    [HideInInspector]
     public int selectedCarIndex = 0;
     private int selectedBehaviorIndex = 0;
 
     public Transform[] spawnPoints;
     public GameObject menu;
+    public GameObject tradeRequestInfoPanel;
+    public Text tradeRequestInfoText;
     private PlayerProperty player;
     public GameObject carCamera;
     public static RCC_PhotonDemo instance;
+    [HideInInspector]
     public GameObject ourPlayer;
+
+
+    public GameObject chatLinesPanel;
+    public GameObject chatLinesContent;
+    public RCC_PhotonUIChatLine chatLinePrefab;
+    public bool differentPlayer;
 
     private void Awake()
     {
@@ -54,9 +65,46 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
 
         if (reconnectIfFails && !PhotonNetwork.IsConnectedAndReady)
             ConnectToPhoton();
+
+        if (RCC_PhotonManager.Instance != null && RCC_PhotonManager.Instance.gameStartedWithLobbyScene)
+        {
+            SpawnPlayer();
+        }
         //else if (PhotonNetwork.IsConnectedAndReady)
         //menu.SetActive(true);
+    }
 
+    public void Chat(InputField inputField)
+    {
+        TradeRequest localTradeRequest = RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>();
+        if (localTradeRequest.targetPhotonView)
+            photonView.RPC("RPCChat", localTradeRequest.targetPhotonView.Owner, PhotonNetwork.NickName, inputField.text, true);
+        RPCChat(PhotonNetwork.NickName, inputField.text, false);
+    }
+
+    [PunRPC]
+    public void RPCChat(string nickName, string text, bool isRed)
+    {
+
+        RCC_PhotonUIChatLine newChatLine = Instantiate(chatLinePrefab.gameObject, chatLinesContent.transform).GetComponent<RCC_PhotonUIChatLine>();
+        newChatLine.gameObject.SetActive(true);
+        newChatLine.Line(nickName + " : " + text);
+        if (isRed) newChatLine.GetComponent<Text>().color = Color.red;
+
+        RCC_PhotonUIChatLine[] chatLines = chatLinesContent.GetComponentsInChildren<RCC_PhotonUIChatLine>();
+
+        if (chatLines.Length > 7)
+            Destroy(chatLines[0].gameObject);
+
+    }
+
+    public void ClearAllChat()
+    {
+        RCC_PhotonUIChatLine[] chatLines = chatLinesContent.GetComponentsInChildren<RCC_PhotonUIChatLine>();
+        for (int i = 0; i < chatLines.Length; i++)
+        {
+            Destroy(chatLines[i].gameObject);
+        }
 
     }
 

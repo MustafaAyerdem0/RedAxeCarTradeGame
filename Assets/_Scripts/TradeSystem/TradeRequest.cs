@@ -2,79 +2,96 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using StarterAssets;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TradeRequest : MonoBehaviourPun
 {
-    public Transform targetPlayer; // Yakındaki hedef oyuncunun Transform'u
-    public string targetPlayerNickname; // Yakındaki hedef oyuncunun Transform'u
-    float interactionRange = 10.0f; // Etkileşim mesafesi
-    public PhotonView targetPhotonView; // Hedef oyuncunun PhotonView'u
+    [HideInInspector]
+    public Transform targetPlayer;
+    [HideInInspector]
+    public string targetPlayerNickname;
+    private readonly float interactionRange = 10.0f;
+    [HideInInspector]
+    public PhotonView targetPhotonView;
+    private GameObject tradeRequestInfoPanel;
+    private Text tradeRequestInfoText;
+    private string lastTradeNickname;
 
 
+    private void Start()
+    {
+        tradeRequestInfoPanel = RCC_PhotonDemo.instance.tradeRequestInfoPanel;
+        tradeRequestInfoText = RCC_PhotonDemo.instance.tradeRequestInfoText;
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T) && photonView.IsMine)
+        if (photonView.IsMine && !TradeWindowManager.Instance.tradeWindow.activeSelf && !TradePopupManager.Instance.tradePopup.activeSelf)
         {
             FindClosestPlayer();
-            if (targetPlayer == null) return;
 
-            // Hedef oyuncu mesafesi kontrolü
-            float distance = Vector3.Distance(transform.position, targetPlayer.position);
-            if (distance <= interactionRange)
+            if (targetPlayer != null)
             {
-                // Hedef oyuncunun PhotonView'unu bul
+                targetPhotonView = targetPlayer.GetComponent<PhotonView>();
+                targetPlayerNickname = targetPhotonView.Owner.NickName;
+                if (lastTradeNickname != targetPlayerNickname) RCC_PhotonDemo.instance.differentPlayer = true;
+                else RCC_PhotonDemo.instance.differentPlayer = false;
+                lastTradeNickname = targetPlayerNickname;
+                tradeRequestInfoPanel.SetActive(true);
+                tradeRequestInfoText.text = "Press T to trade with " + targetPlayerNickname;
+            }
+            else
+            {
+                tradeRequestInfoPanel.SetActive(false);
+                tradeRequestInfoText.text = "";
+                return;
+            }
+
+            float distance = Vector3.Distance(transform.position, targetPlayer.position);
+            if (Input.GetKeyDown(KeyCode.T) && distance <= interactionRange)
+            {
+
                 targetPhotonView = targetPlayer.GetComponent<PhotonView>();
                 targetPlayerNickname = targetPhotonView.Owner.NickName;
 
                 if (targetPhotonView != null)
                 {
-                    // Sadece hedef oyuncuya RPC ile ticaret isteği gönder
                     photonView.RPC("SendTradeRequest", targetPhotonView.Owner, photonView.ViewID);
-                    Debug.Log("Ticaret isteği " + targetPhotonView.Owner.NickName + " oyuncusuna gönderildi.");
                 }
             }
-            else
-            {
-                Debug.Log("Hedef oyuncu çok uzakta.");
-            }
+        }
+        else if (photonView.IsMine)
+        {
+            tradeRequestInfoPanel.SetActive(false);
+            tradeRequestInfoText.text = "";
         }
     }
 
     [PunRPC]
     void SendTradeRequest(int viewID)
     {
-        Debug.LogError(viewID);
         TradeRequest localTradeRequest = RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>();
         localTradeRequest.targetPhotonView = PhotonView.Find(viewID).GetComponent<PhotonView>();
         localTradeRequest.targetPlayer = localTradeRequest.targetPhotonView.transform;
         localTradeRequest.targetPlayerNickname = localTradeRequest.targetPhotonView.Owner.NickName;
-        // Hedef oyuncunun ekranına ticaret isteği popup'ı göster
         TradePopupManager.Instance.ShowTradePopup(localTradeRequest.targetPlayerNickname);
     }
 
 
     void FindClosestPlayer()
     {
-        // TradeRequest componentine sahip tüm objeleri bul
         TradeRequest[] allPlayers = FindObjectsOfType<TradeRequest>();
-
-        // Eğer birden fazla TradeRequest varsa devam et
         if (allPlayers.Length > 0)
         {
-            float closestDistance = interactionRange; // Mesafe için bir limit belirliyoruz.
+            float closestDistance = interactionRange;
             Transform closestPlayer = null;
-
             foreach (TradeRequest player in allPlayers)
             {
                 PhotonView playerPhotonView = player.GetComponent<PhotonView>();
-
-                // Kendini listeden çıkarmak için isMine kontrolü yapıyoruz
                 if (!playerPhotonView.IsMine)
                 {
                     float distance = Vector3.Distance(transform.position, player.transform.position);
-
-                    // Eğer mesafe en küçük mesafeden küçükse ve limitin içindeyse
                     if (distance < closestDistance)
                     {
                         closestDistance = distance;
@@ -82,21 +99,10 @@ public class TradeRequest : MonoBehaviourPun
                     }
                 }
             }
-
-            // Eğer yakın oyuncu bulunursa targetPlayer değişkenine ata
-            if (closestPlayer != null)
-            {
-                targetPlayer = closestPlayer;
-            }
-            else
-            {
-                targetPlayer = null; // Eğer 2 birimlik mesafede kimse yoksa null yap
-            }
+            if (closestPlayer != null) targetPlayer = closestPlayer;
+            else targetPlayer = null;
         }
-        else
-        {
-            targetPlayer = null; // Hiç oyuncu yoksa null yap
-        }
+        else targetPlayer = null;
     }
 
 }

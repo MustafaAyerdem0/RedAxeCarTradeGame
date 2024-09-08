@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class TradePopupManager : MonoBehaviourPun
 {
     public static TradePopupManager Instance;
-    public GameObject tradePopup; // Ticaret popup penceresi
-    public TMP_Text popupText; // Popup'da gösterilecek metin
+    public GameObject tradePopup;
+    public TMP_Text popupText;
 
     private string senderName;
 
@@ -15,30 +15,26 @@ public class TradePopupManager : MonoBehaviourPun
     {
         Instance = this;
     }
-
     public void ShowTradePopup(string sender)
     {
         senderName = sender;
-        tradePopup.SetActive(true); // Popup'ı aç
-        popupText.text = senderName + " sana pazarlık yapmak için istek gönderdi.";
+        tradePopup.SetActive(true);
+        popupText.text = senderName + " send a trade request to you.";
     }
 
-    // Kabul butonuna tıklandığında çağrılır
     public void OnAccept()
     {
-        // RPC ile kabul bilgisini hem isteği gönderen oyuncuya hem de hedef oyuncuya gönder
         photonView.RPC("TradeRequestResponse", RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>().targetPhotonView.Owner, senderName, true);
         TradeRequestResponse(senderName, true);
-        tradePopup.SetActive(false); // Popup'ı kapat
+        tradePopup.SetActive(false);
     }
 
-    // Reddet butonuna tıklandığında çağrılır
+
     public void OnReject()
     {
-        // RPC ile red bilgisini isteği gönderen oyuncuya gönder
         photonView.RPC("TradeRequestResponse", RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>().targetPhotonView.Owner, senderName, false);
         TradeRequestResponse(senderName, false);
-        tradePopup.SetActive(false); // Popup'ı kapat
+        tradePopup.SetActive(false);
     }
 
     [PunRPC]
@@ -46,14 +42,12 @@ public class TradePopupManager : MonoBehaviourPun
     {
         if (accepted)
         {
-            // İstek kabul edildiyse her iki oyuncu için de ticaret penceresini aç
             TradeWindowManager.Instance.OpenTradeWindow(sender, PhotonNetwork.NickName);
             InventoryController.instance.ShowInventory();
         }
         else
         {
-            // İstek reddedildiyse mesaj göster
-            Debug.Log(sender + " oyuncusu isteği reddetti.");
+            Debug.Log(sender + " player reject to request.");
         }
     }
 }
