@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
@@ -44,7 +45,7 @@ public class TradeWindow : MonoBehaviourPun
 
     public void ChangeMoney()
     {
-        if (!String.IsNullOrEmpty(ourMoney.text)) ourMoney.text = MoneyManager.instance.GetMaxMoney(int.Parse(ourMoney.text)).ToString();
+        if (!String.IsNullOrEmpty(ourMoney.text) && ourMoney.text.All(char.IsDigit)) ourMoney.text = MoneyManager.instance.GetMaxMoney(int.Parse(ourMoney.text)).ToString();
         photonView.RPC("ChangeMoneyRPC", localTradeRequest.targetPhotonView.Owner, ourMoney.text);
     }
 

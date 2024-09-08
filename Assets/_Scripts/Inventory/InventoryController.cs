@@ -236,8 +236,8 @@ public class InventoryController : MonoBehaviourPun
             OnTradeAcceptedOrRejected(13, 17, true);
             CheckHaveCarInInventory();
 
-            PlayerData.instance.ourMoney -= int.Parse(TradeWindow.instance.ourMoney.text);
-            PlayerData.instance.ourMoney += int.Parse(TradeWindow.instance.otherMoney.text);
+            if (TradeWindow.instance.ourMoney.text.All(char.IsDigit)) PlayerData.instance.ourMoney -= int.Parse(TradeWindow.instance.ourMoney.text);
+            if (TradeWindow.instance.otherMoney.text.All(char.IsDigit)) PlayerData.instance.ourMoney += int.Parse(TradeWindow.instance.otherMoney.text);
 
             TradeWindow.instance.ourMoney.text = "";
             TradeWindow.instance.otherMoney.text = "";
