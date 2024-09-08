@@ -118,7 +118,7 @@ public class InventoryController : MonoBehaviourPun
     private void HandleItemActionRequest(int itemIndex)
     {
         InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
-        if (inventoryItem.IsEmpty)
+        if (inventoryItem.IsEmpty || itemIndex > 8)
             return;
 
         IItemAction itemAction = inventoryItem.item as IItemAction;
@@ -203,44 +203,29 @@ public class InventoryController : MonoBehaviourPun
     [PunRPC]
     public void ExitTradeRPC()
     {
-
         if (TradeWindow.instance.ourToggle.isOn && TradeWindow.instance.otherToggle.isOn)
         {
-            for (int i = 9; i < 13; i++)
-            {
-                InventoryItem inventoryItem = inventoryData.GetItemAt(i);
-                if (inventoryItem.IsEmpty) continue;
-                Debug.LogError("exitTrade");
-                DropItem(i, inventoryItem.quantity);
-            }
-
-            for (int i = 13; i < 17; i++)
-            {
-                InventoryItem inventoryItem = inventoryData.GetItemAt(i);
-                if (inventoryItem.IsEmpty) continue;
-                DropItem(i, inventoryItem.quantity);
-                inventoryData.AddItem(inventoryItem);
-            }
+            OnTradeAcceptedOrRejected(9, 13, false);
+            OnTradeAcceptedOrRejected(13, 17, true);
         }
         else
         {
-            for (int i = 9; i < 13; i++)
-            {
-                InventoryItem inventoryItem = inventoryData.GetItemAt(i);
-                if (inventoryItem.IsEmpty) continue;
-                Debug.LogError("exitTrade");
-                DropItem(i, inventoryItem.quantity);
-                inventoryData.AddItem(inventoryItem);
-            }
-
-            for (int i = 13; i < 17; i++)
-            {
-                InventoryItem inventoryItem = inventoryData.GetItemAt(i);
-                if (inventoryItem.IsEmpty) continue;
-                DropItem(i, inventoryItem.quantity);
-            }
+            OnTradeAcceptedOrRejected(9, 13, true);
+            OnTradeAcceptedOrRejected(13, 17, false);
         }
         tradeWindow.SetActive(false);
+    }
+
+    public void OnTradeAcceptedOrRejected(int startIndex, int finishIndex, bool isAdding)
+    {
+        for (int i = startIndex; i < finishIndex; i++)
+        {
+            InventoryItem inventoryItem = inventoryData.GetItemAt(i);
+            if (inventoryItem.IsEmpty) continue;
+            DropItem(i, inventoryItem.quantity);
+            if (isAdding) inventoryData.AddItem(inventoryItem);
+        }
+
     }
 
     private void HandleDescriptionRequest(int itemIndex)

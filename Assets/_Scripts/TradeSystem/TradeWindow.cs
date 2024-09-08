@@ -37,7 +37,6 @@ public class TradeWindow : MonoBehaviourPun
         otherPlayerNameText.text = localTradeRequest?.targetPlayerNickname;
         ourMoney.transform.parent.parent.GetComponent<TMP_InputField>().interactable = true;
         ourToggle.interactable = true;
-        otherToggle.interactable = true;
         ourToggle.isOn = false;
         otherToggle.isOn = false;
     }
@@ -67,4 +66,20 @@ public class TradeWindow : MonoBehaviourPun
         ourMoney.transform.parent.parent.GetComponent<TMP_InputField>().interactable = false;
 
     }
+
+    public void CheckTradeAgreement()
+    {
+        if (ourToggle.isOn && otherToggle.isOn)
+            InventoryController.instance.ExitTrade();
+    }
+
+    public void ToggleOnValueChanged(bool isOn)
+    {
+        if (isOn)
+        {
+            ourToggle.interactable = false;
+            ConfirmTrade();
+        }
+    }
+
 }

@@ -14,7 +14,7 @@ public class TradeRequest : MonoBehaviourPun
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I) && photonView.IsMine)
+        if (Input.GetKeyDown(KeyCode.T) && photonView.IsMine)
         {
             FindClosestPlayer();
             if (targetPlayer == null) return;

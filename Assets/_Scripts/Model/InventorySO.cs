@@ -70,8 +70,11 @@ namespace Inventory.Model
             return 0;
         }
 
+        // private bool IsInventoryFull()
+        //     => inventoryItems.Where(item => item.IsEmpty).Any() == false;
+
         private bool IsInventoryFull()
-            => inventoryItems.Where(item => item.IsEmpty).Any() == false;
+            => !inventoryItems.Take(9).Any(item => item.IsEmpty);
 
         private int AddStackableItem(ItemSO item, int quantity)
         {
@@ -127,7 +130,7 @@ namespace Inventory.Model
 
         public void SplitItem(int itemIndex)
         {
-            if (inventoryItems[itemIndex].quantity > 1)
+            if (inventoryItems[itemIndex].quantity > 1 && !IsInventoryFull())
             {
                 // Orijinal slottaki miktarı 1 azalt
                 inventoryItems[itemIndex] = inventoryItems[itemIndex].ChangeQuantity(inventoryItems[itemIndex].quantity - 1);
