@@ -1,27 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerData : DBSyncSynchronizer
 {
     public static PlayerData instance;
-
+    public Dictionary<string, int> fieldsQuantity = new Dictionary<string, int>();
     [SyncWithDatabase]
     public int ourMoney;
     [SyncWithDatabase]
-    public int carIndex0;
+    public int Coupe;
     [SyncWithDatabase]
-    public int carIndex1;
+    public int Ctr;
     [SyncWithDatabase]
-    public int carIndex2;
+    public int Jeep;
     [SyncWithDatabase]
-    public int carIndex3;
+    public int M3_E36;
     [SyncWithDatabase]
-    public int carIndex4;
+    public int M3_E46;
     [SyncWithDatabase]
-    public int carIndex5;
+    public int M5_E30;
     [SyncWithDatabase]
-    public int carIndex6;
+    public int Skyline;
 
     private void Awake()
     {
@@ -33,8 +36,17 @@ public class PlayerData : DBSyncSynchronizer
         {
             instance = this;
         }
-    }
 
+        var fields = GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+
+        foreach (var field in fields)
+        {
+            if (field.GetCustomAttribute<SyncWithDatabaseAttribute>() != null)
+            {
+                fieldsQuantity.Add(field.Name, 0);
+            }
+        }
+    }
     public override void AddDBKeys() // Adding json key to the database with its own Script name to the action of classes with DBSyncSynchronizer superclass
     {
         base.AddDBKeys();
@@ -45,7 +57,40 @@ public class PlayerData : DBSyncSynchronizer
     public override void SaveData()
     {
         base.SaveData();
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+
+            for (int i = 0; i < 9; i++)
+            {
+                var item = PlayfabManager.instance.activeInventory.GetItemAt(i);
+                if (!item.IsEmpty && item.quantity != 0)
+                {
+                    string variableName = item.item.name;
+                    int quantityValue = item.quantity;
+                    fieldsQuantity[variableName] = fieldsQuantity[variableName] + quantityValue;
+
+                }
+            }
+            SetVariableValue();
+        }
         PlayfabManager.instance.SaveData(GetType().Name);
+    }
+
+    private void SetVariableValue()
+    {
+        foreach (var item in fieldsQuantity)
+        {
+            FieldInfo field = GetType().GetField(item.Key, BindingFlags.Public | BindingFlags.Instance);
+
+            if (field != null)
+            {
+                field.SetValue(this, item.Value);
+            }
+            else
+            {
+                Debug.LogWarning($"Field with name {item.Key} not found in PlayerData.");
+            }
+        }
     }
 
     private void OnApplicationQuit()

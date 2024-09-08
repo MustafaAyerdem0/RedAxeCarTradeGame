@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2de320cceb9db9d40974096998d1b440, type: 3}
+  m_Script: {fileID: 11500000, guid: 808cc495f42abb44a84e5d9ad39e7068, type: 3}
   m_Name: M3_E46
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
+  <carIndex>k__BackingField: 0
   <MaxStackSize>k__BackingField: 100
   <Name>k__BackingField: M3_E46
   <Description>k__BackingField: "Drift kral\u0131  :)"
@@ -30,5 +31,4 @@ MonoBehaviour:
     value: 8000
   - itemParameter: {fileID: 11400000, guid: 8b3f040e2e31cbf42a336319e28ee4fa, type: 2}
     value: 0.15
-  modifiersData: []
   <actionSFX>k__BackingField: {fileID: 0}

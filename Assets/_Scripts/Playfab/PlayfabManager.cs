@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.Reflection;
 using System;
 using TMPro;
+using Inventory.Model;
 
 public class PlayfabManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PlayfabManager : MonoBehaviour
     public static Action onLoginSuccessAction;
     public Dictionary<string, DBSyncSynchronizer> dbKeys = new Dictionary<string, DBSyncSynchronizer>();
     public static string displayName;
+    public InventorySO activeInventory;
 
     private void Awake()
     {
@@ -27,6 +29,7 @@ public class PlayfabManager : MonoBehaviour
         else
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -74,13 +77,13 @@ public class PlayfabManager : MonoBehaviour
     public void SaveData(string key) //Converting the class to Json and saving only variables with the "SyncWithDatabase Attribute" Attribute to the database
     {
         var data = new Dictionary<string, string>();
-        var fields = dbKeys[key].GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+        var fields = PlayerData.instance.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
         var jsonData = new Dictionary<string, string>();
         foreach (var field in fields)
         {
             if (field.GetCustomAttribute<SyncWithDatabaseAttribute>() != null)
             {
-                jsonData[field.Name] = field.GetValue(dbKeys[key])?.ToString();
+                jsonData[field.Name] = field.GetValue(PlayerData.instance)?.ToString();
             }
         }
 

@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df3113174a1bef84c99577497561cc09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeInventory: {fileID: 11400000, guid: ba3b8056b9649b54a82e2227884c8cfb, type: 2}
 --- !u!4 &38547438
 Transform:
   m_ObjectHideFlags: 0
@@ -181,14 +182,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ee9b0764459e142bb70f6e63293bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ourMoney: 0
-  carIndex0: 3
-  carIndex1: 2
-  carIndex2: 2
-  carIndex3: 0
-  carIndex4: 0
-  carIndex5: 1
-  carIndex6: 0
+  ourMoney: 10000
+  Coupe: 2
+  Ctr: 0
+  Jeep: 3
+  M3_E36: 0
+  M3_E46: 0
+  M5_E30: 1
+  Skyline: 0
 --- !u!114 &38547440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +318,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 52510006, guid: 9534572a22f5dcc49b38ec37cb722d0b, type: 3}
+      propertyPath: m_Text
+      value: 123456
+      objectReference: {fileID: 0}
     - target: {fileID: 862865598, guid: 9534572a22f5dcc49b38ec37cb722d0b, type: 3}
       propertyPath: m_FontData.m_Font
       value: 

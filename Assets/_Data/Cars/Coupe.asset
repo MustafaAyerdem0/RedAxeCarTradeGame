@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2de320cceb9db9d40974096998d1b440, type: 3}
+  m_Script: {fileID: 11500000, guid: 808cc495f42abb44a84e5d9ad39e7068, type: 3}
   m_Name: Coupe
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
@@ -31,5 +31,4 @@ MonoBehaviour:
     value: 7500
   - itemParameter: {fileID: 11400000, guid: 8b3f040e2e31cbf42a336319e28ee4fa, type: 2}
     value: 0.2
-  modifiersData: []
   <actionSFX>k__BackingField: {fileID: 0}

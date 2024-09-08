@@ -17,17 +17,13 @@ public class PlayerProperty : MonoBehaviourPunCallbacks
 
     public void SetLocalPlayer()
     {
-        if (photonView.IsMine)
-        {
-
-        }
-
-        else
+        if (!photonView.IsMine)
         {
             cinemacineVirtualCam.SetActive(false);
             cinemacineBrain.SetActive(false);
             GetComponent<ThirdPersonController>().enabled = false;
         }
+
     }
 
 }

@@ -7,20 +7,18 @@ using UnityEngine;
 
 public class DriveCar : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     PhotonView photonView;
     PlayerProperty playerProperty;
     ThirdPersonController thirdPersonController;
     RCC_PhotonDemo rCC_PhotonDemo;
     CharacterController characterController;
     RCC_UIDashboardDisplay rCC_UIDashboardDisplay;
-
-    public Action getInCarAction;
-    public Action getOutCarAction;
-    public float distanceThreshold = 2.0f;
-    public bool isWithinDistance = false;
-    public bool inCar = false;
+    Action getInCarAction;
+    Action getOutCarAction;
+    readonly float distanceThreshold = 2.0f;
+    bool isWithinDistance = false;
+    [HideInInspector]
+    public bool inCar;
 
 
     private void Awake()

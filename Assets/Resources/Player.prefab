@@ -2177,8 +2177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73eb34b0d84bc44fbd9d81f62334a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceThreshold: 2
-  isWithinDistance: 0
   inCar: 0
 --- !u!114 &44824088048715060
 MonoBehaviour:

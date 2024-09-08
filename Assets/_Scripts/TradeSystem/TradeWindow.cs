@@ -9,7 +9,8 @@ using UnityEngine.UI;
 
 public class TradeWindow : MonoBehaviourPun
 {
-    public TMP_Text otherPlayerNameText;
+    [SerializeField]
+    private TMP_Text otherPlayerNameText;
     TradeRequest localTradeRequest;
     public Toggle ourToggle;
     public Toggle otherToggle;
@@ -43,6 +44,7 @@ public class TradeWindow : MonoBehaviourPun
 
     public void ChangeMoney()
     {
+        if (!String.IsNullOrEmpty(ourMoney.text)) ourMoney.text = MoneyManager.instance.GetMaxMoney(int.Parse(ourMoney.text)).ToString();
         photonView.RPC("ChangeMoneyRPC", localTradeRequest.targetPhotonView.Owner, ourMoney.text);
     }
 

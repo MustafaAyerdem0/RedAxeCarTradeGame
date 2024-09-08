@@ -4,9 +4,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Inventory.Model;
 using Photon.Pun;
+using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -21,16 +23,10 @@ public class InventoryController : MonoBehaviourPun
     [SerializeField]
     private InventorySO inventoryData;
 
-    public List<InventoryItem> initialItems = new List<InventoryItem>();
+    private List<InventoryItem> initialItems = new List<InventoryItem>();
 
     [SerializeField]
-    private AudioClip dropClip;
-
-    [SerializeField]
-    private AudioSource audioSource;
-
-    public bool isTradePage;
-    public EdibleItemSO[] edibleItemSos;
+    private CarItemSO[] carItemSos;
 
     public static InventoryController instance;
 
@@ -44,6 +40,31 @@ public class InventoryController : MonoBehaviourPun
         {
             Destroy(this);
         }
+
+
+        var fields = PlayerData.instance.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+
+        foreach (var field in fields)
+        {
+
+            int index = findIndexCar(field.Name);
+            if (index == -1) continue;
+            InventoryItem inventoryItem = new InventoryItem();
+            inventoryItem.item = carItemSos[index];
+            inventoryItem.quantity = int.Parse(field.GetValue(PlayerData.instance).ToString());
+            if (inventoryItem.quantity == 0 || field.Name == "ourMoney") continue;
+            initialItems.Add(inventoryItem);
+        }
+
+    }
+
+    private int findIndexCar(string itemName)
+    {
+        for (int i = 0; i < carItemSos.Length; i++)
+        {
+            if (itemName == carItemSos[i].name) return i;
+        }
+        return -1;
     }
 
     private void Start()
@@ -65,17 +86,17 @@ public class InventoryController : MonoBehaviourPun
 
     private void HandleReplicateTradeItem(int itemIndex)
     {
-        int edibleItemSoIndex = System.Array.IndexOf(edibleItemSos, inventoryData.inventoryItems[itemIndex].item);
+        int carItemSoIndex = System.Array.IndexOf(carItemSos, inventoryData.inventoryItems[itemIndex].item);
         TradeRequest localTradeRequest = RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>();
         if (localTradeRequest.targetPhotonView)
-            photonView.RPC("ReplicateTradeItemRPC", localTradeRequest.targetPhotonView.Owner, itemIndex, edibleItemSoIndex, inventoryData.inventoryItems[itemIndex].quantity);
+            photonView.RPC("ReplicateTradeItemRPC", localTradeRequest.targetPhotonView.Owner, itemIndex, carItemSoIndex, inventoryData.inventoryItems[itemIndex].quantity);
     }
 
     [PunRPC]
-    public void ReplicateTradeItemRPC(int itemIndex, int edibleItemSoIndex, int quantity)
+    public void ReplicateTradeItemRPC(int itemIndex, int carItemSoIndex, int quantity)
     {
         InventoryItem inventoryItem = inventoryData.inventoryItems[itemIndex];
-        inventoryData.AddItem(edibleItemSos[edibleItemSoIndex], quantity, null, true);
+        inventoryData.AddItem(carItemSos[carItemSoIndex], quantity, null, true);
     }
 
     private void PrepareInventoryData()
@@ -102,7 +123,7 @@ public class InventoryController : MonoBehaviourPun
 
     private void PrepareUI()
     {
-        inventoryUI.InitializeInventoryUI(inventoryData.Size); //! bunu koy
+        inventoryUI.InitializeInventoryUI(inventoryData.Size);
         inventoryUI.OnDescriptionRequested += HandleDescriptionRequest;
         inventoryUI.OnSwapItems += HandleSwapItems;
         inventoryUI.OnStartDragging += HandleDragging;
@@ -142,7 +163,6 @@ public class InventoryController : MonoBehaviourPun
         inventoryData.RemoveItem(itemIndex, quantity);
         inventoryUI.ResetSelection();
         CheckHaveCarInInventory();
-        //audioSource.PlayOneShot(dropClip);
     }
 
     public void PerformAction(int itemIndex)
@@ -154,7 +174,6 @@ public class InventoryController : MonoBehaviourPun
         IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
         if (destroyableItem != null)
         {
-            //! default    inventoryData.RemoveItem(itemIndex, 1);
             RCC_PhotonDemo.instance.selectedCarIndex = inventoryItem.item.carIndex;
             RCC_PhotonDemo.instance.Spawn();
             inventoryUI.ResetSelection();
@@ -164,7 +183,6 @@ public class InventoryController : MonoBehaviourPun
         if (itemAction != null)
         {
             itemAction.PerformAction(gameObject, inventoryItem.itemState);
-            //audioSource.PlayOneShot(itemAction.actionSFX);
             if (inventoryData.GetItemAt(itemIndex).IsEmpty)
                 inventoryUI.ResetSelection();
         }
@@ -202,8 +220,6 @@ public class InventoryController : MonoBehaviourPun
         inventoryData.SwapItems(itemIndex_1, itemIndex_2);
     }
 
-
-
     public void ExitTrade()
     {
         TradeRequest localTradeRequest = RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>();
@@ -219,13 +235,24 @@ public class InventoryController : MonoBehaviourPun
             OnTradeAcceptedOrRejected(9, 13, false);
             OnTradeAcceptedOrRejected(13, 17, true);
             CheckHaveCarInInventory();
+
+            PlayerData.instance.ourMoney -= int.Parse(TradeWindow.instance.ourMoney.text);
+            PlayerData.instance.ourMoney += int.Parse(TradeWindow.instance.otherMoney.text);
+
+            TradeWindow.instance.ourMoney.text = "";
+            TradeWindow.instance.otherMoney.text = "";
+
         }
         else
         {
             OnTradeAcceptedOrRejected(9, 13, true);
             OnTradeAcceptedOrRejected(13, 17, false);
+
+            TradeWindow.instance.ourMoney.text = "";
+            TradeWindow.instance.otherMoney.text = "";
         }
 
+        MoneyManager.instance.UpdateText();
         tradeWindow.SetActive(false);
     }
 
@@ -284,7 +311,7 @@ public class InventoryController : MonoBehaviourPun
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) && !isTradePage)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (inventoryUI.isActiveAndEnabled == false)
             {
