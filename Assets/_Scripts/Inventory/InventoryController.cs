@@ -126,7 +126,7 @@ public class InventoryController : MonoBehaviourPun
         IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
         if (destroyableItem != null)
         {
-            inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity));
+            inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity, true));
         }
 
     }
@@ -137,10 +137,11 @@ public class InventoryController : MonoBehaviourPun
         inventoryUI.ResetSelection();
     }
 
-    private void DropItem(int itemIndex, int quantity)
+    private void DropItem(int itemIndex, int quantity, bool checkDriveInInventoryCar)
     {
         inventoryData.RemoveItem(itemIndex, quantity);
         inventoryUI.ResetSelection();
+        CheckHaveCarInInventory();
         //audioSource.PlayOneShot(dropClip);
     }
 
@@ -234,7 +235,7 @@ public class InventoryController : MonoBehaviourPun
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(i);
             if (inventoryItem.IsEmpty) continue;
-            DropItem(i, inventoryItem.quantity);
+            DropItem(i, inventoryItem.quantity, false);
             if (isAdding) inventoryData.AddItem(inventoryItem);
         }
 

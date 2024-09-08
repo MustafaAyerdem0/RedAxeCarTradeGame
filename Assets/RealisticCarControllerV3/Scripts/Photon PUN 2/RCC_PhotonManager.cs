@@ -25,6 +25,7 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks
 
     [Header("UI Menus")]
     public InputField nickPanel;
+    public GameObject AuthPanel;
     public GameObject browseRoomsPanel;
     public GameObject roomsContent;
     // public GameObject chatLinesPanel;
@@ -56,7 +57,7 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks
         {
 
             Instance = this;
-            DontDestroyOnLoad(transform.root.gameObject);
+            //DontDestroyOnLoad(transform.root.gameObject);
 
         }
         else
@@ -113,7 +114,10 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsConnected)
             ConnectToServer();
         else
+        {
             nickPanel.gameObject.SetActive(false);
+            AuthPanel.gameObject.SetActive(false);
+        }
 
     }
 
@@ -125,6 +129,7 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = nickPanel.text;
         PhotonNetwork.ConnectUsingSettings();
         nickPanel.gameObject.SetActive(false);
+        AuthPanel.gameObject.SetActive(false);
 
         if (RCC_InfoLabel.Instance)
             RCC_InfoLabel.Instance.ShowInfo("Connecting to server");
@@ -151,6 +156,7 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("Entered to lobby");
         status.text = "Entered to lobby";
         nickPanel.gameObject.SetActive(false);
+        AuthPanel.gameObject.SetActive(false);
         browseRoomsPanel.SetActive(true);
         createRoomButton.SetActive(true);
         exitRoomButton.SetActive(false);
@@ -166,6 +172,7 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined room");
         status.text = "Joined room";
         nickPanel.gameObject.SetActive(false);
+        AuthPanel.gameObject.SetActive(false);
         browseRoomsPanel.SetActive(false);
         createRoomButton.SetActive(false);
         exitRoomButton.SetActive(true);
@@ -184,6 +191,7 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("Created room");
         status.text = "Created room";
         nickPanel.gameObject.SetActive(false);
+        AuthPanel.gameObject.SetActive(false);
         browseRoomsPanel.SetActive(false);
         createRoomButton.SetActive(false);
         exitRoomButton.SetActive(true);
@@ -332,6 +340,7 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("Exited room");
         status.text = "Exited room";
         nickPanel.gameObject.SetActive(false);
+        AuthPanel.gameObject.SetActive(false);
         browseRoomsPanel.SetActive(true);
         createRoomButton.SetActive(true);
         exitRoomButton.SetActive(false);
@@ -352,6 +361,7 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("Exited to lobby");
         status.text = "Exited to lobby";
         nickPanel.gameObject.SetActive(true);
+        AuthPanel.gameObject.SetActive(true);
         browseRoomsPanel.SetActive(false);
         createRoomButton.SetActive(false);
         exitRoomButton.SetActive(false);
@@ -365,6 +375,7 @@ public class RCC_PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("Disconnected");
         status.text = "Disconnected";
         nickPanel.gameObject.SetActive(true);
+        AuthPanel.gameObject.SetActive(true);
         browseRoomsPanel.SetActive(false);
         createRoomButton.SetActive(false);
         exitRoomButton.SetActive(false);

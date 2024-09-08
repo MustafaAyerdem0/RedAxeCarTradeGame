@@ -66,10 +66,9 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
         if (reconnectIfFails && !PhotonNetwork.IsConnectedAndReady)
             ConnectToPhoton();
 
-        if (RCC_PhotonManager.Instance != null && RCC_PhotonManager.Instance.gameStartedWithLobbyScene)
-        {
-            SpawnPlayer();
-        }
+
+        SpawnPlayer();
+
         //else if (PhotonNetwork.IsConnectedAndReady)
         //menu.SetActive(true);
     }
@@ -311,6 +310,16 @@ public class RCC_PhotonDemo : Photon.Pun.MonoBehaviourPunCallbacks
         RCC_InfoLabel.Instance.ShowInfo("Entering to lobby");
         PhotonNetwork.JoinLobby();
 
+    }
+
+    public void ExitGame()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene("Lobby");
     }
 
     public override void OnJoinedLobby()
