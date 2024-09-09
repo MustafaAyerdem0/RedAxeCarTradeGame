@@ -41,7 +41,7 @@ public class PlayerData : DBSyncSynchronizer
 
         foreach (var field in fields)
         {
-            if (field.GetCustomAttribute<SyncWithDatabaseAttribute>() != null)
+            if (field.GetCustomAttribute<SyncWithDatabaseAttribute>() != null && field.Name != "ourMoney")
             {
                 fieldsQuantity.Add(field.Name, 0);
             }
@@ -82,7 +82,7 @@ public class PlayerData : DBSyncSynchronizer
         {
             FieldInfo field = GetType().GetField(item.Key, BindingFlags.Public | BindingFlags.Instance);
 
-            if (field != null)
+            if (field != null && field.Name != "ourMoney")
             {
                 field.SetValue(this, item.Value);
             }

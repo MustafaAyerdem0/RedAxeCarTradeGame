@@ -18,6 +18,7 @@ public class TradeWindow : MonoBehaviourPun
 
     public TMP_Text ourMoney;
     public TMP_Text otherMoney;
+    public TMP_InputField ourMoneyInputField;
 
     public static TradeWindow instance;
 
@@ -37,7 +38,7 @@ public class TradeWindow : MonoBehaviourPun
     {
         localTradeRequest = RCC_PhotonDemo.instance.ourPlayer?.GetComponent<TradeRequest>();
         otherPlayerNameText.text = localTradeRequest?.targetPlayerNickname;
-        ourMoney.transform.parent.parent.GetComponent<TMP_InputField>().interactable = true;
+        ourMoneyInputField.interactable = true;
         ourToggle.interactable = true;
         ourToggle.isOn = false;
         otherToggle.isOn = false;
@@ -45,8 +46,14 @@ public class TradeWindow : MonoBehaviourPun
 
     public void ChangeMoney()
     {
-        if (!String.IsNullOrEmpty(ourMoney.text) && ourMoney.text.All(char.IsDigit)) ourMoney.text = MoneyManager.instance.GetMaxMoney(int.Parse(ourMoney.text)).ToString();
-        photonView.RPC("ChangeMoneyRPC", localTradeRequest.targetPhotonView.Owner, ourMoney.text);
+        int intMoney;
+        if (int.TryParse(ourMoneyInputField.text, out intMoney))
+        {
+            ourMoneyInputField.text = MoneyManager.instance.GetMaxMoney(intMoney).ToString();
+            Debug.LogError("cast edildi");
+        }
+        photonView.RPC("ChangeMoneyRPC", localTradeRequest.targetPhotonView.Owner, ourMoneyInputField.text);
+
     }
 
 
@@ -58,7 +65,7 @@ public class TradeWindow : MonoBehaviourPun
 
     public void ConfirmTrade()
     {
-        ourMoney.transform.parent.parent.GetComponent<TMP_InputField>().interactable = false;
+        ourMoneyInputField.interactable = false;
         photonView.RPC("ConfirmTradeRPC", localTradeRequest.targetPhotonView.Owner);
     }
 
@@ -66,7 +73,7 @@ public class TradeWindow : MonoBehaviourPun
     public void ConfirmTradeRPC()
     {
         otherToggle.isOn = true;
-        ourMoney.transform.parent.parent.GetComponent<TMP_InputField>().interactable = false;
+        ourMoneyInputField.interactable = false;
 
     }
 

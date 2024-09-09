@@ -225,7 +225,7 @@ public class InventoryController : MonoBehaviourPun
         TradeRequest localTradeRequest = RCC_PhotonDemo.instance.ourPlayer.GetComponent<TradeRequest>();
         if (localTradeRequest.targetPhotonView)
             photonView.RPC("ExitTradeRPC", localTradeRequest.targetPhotonView.Owner);
-        ExitTradeRPC();
+
     }
     [PunRPC]
     public void ExitTradeRPC()
@@ -236,10 +236,26 @@ public class InventoryController : MonoBehaviourPun
             OnTradeAcceptedOrRejected(13, 17, true);
             CheckHaveCarInInventory();
 
-            if (TradeWindow.instance.ourMoney.text.All(char.IsDigit)) PlayerData.instance.ourMoney -= int.Parse(TradeWindow.instance.ourMoney.text);
-            if (TradeWindow.instance.otherMoney.text.All(char.IsDigit)) PlayerData.instance.ourMoney += int.Parse(TradeWindow.instance.otherMoney.text);
 
-            TradeWindow.instance.ourMoney.text = "";
+
+            Debug.LogError(TradeWindow.instance.ourMoneyInputField.text.GetType());
+            Debug.LogError(TradeWindow.instance.otherMoney.text);
+            Debug.LogError(TradeWindow.instance.ourMoneyInputField.text);
+
+
+            int intMoney;
+            if (int.TryParse(TradeWindow.instance.ourMoneyInputField.text.Trim().ToString(), out intMoney))
+            {
+                Debug.LogError(intMoney);
+                PlayerData.instance.ourMoney -= intMoney;
+            }
+            if (int.TryParse(TradeWindow.instance.otherMoney.text.Trim().ToString(), out intMoney))
+            {
+                Debug.LogError(intMoney);
+                PlayerData.instance.ourMoney += intMoney;
+            }
+
+            TradeWindow.instance.ourMoneyInputField.text = "";
             TradeWindow.instance.otherMoney.text = "";
 
         }
@@ -248,7 +264,7 @@ public class InventoryController : MonoBehaviourPun
             OnTradeAcceptedOrRejected(9, 13, true);
             OnTradeAcceptedOrRejected(13, 17, false);
 
-            TradeWindow.instance.ourMoney.text = "";
+            TradeWindow.instance.ourMoneyInputField.text = "";
             TradeWindow.instance.otherMoney.text = "";
         }
 

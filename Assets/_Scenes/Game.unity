@@ -26584,6 +26584,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2078598077}
+    - target: {fileID: 1545130829354494580, guid: c74924cb4901b3745909518d7cb152e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitTradeRPC
+      objectReference: {fileID: 0}
     - target: {fileID: 1545130829544521964, guid: c74924cb4901b3745909518d7cb152e9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -26672,6 +26676,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1545130831071411280, guid: c74924cb4901b3745909518d7cb152e9, type: 3}
+      propertyPath: ourMoneyInputField
+      value: 
+      objectReference: {fileID: 1545130830767732797}
     - target: {fileID: 1545130831071411281, guid: c74924cb4901b3745909518d7cb152e9, type: 3}
       propertyPath: sceneViewId
       value: 3
@@ -26682,6 +26690,17 @@ PrefabInstance:
       objectReference: {fileID: 642020871}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c74924cb4901b3745909518d7cb152e9, type: 3}
+--- !u!114 &1545130830767732797 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1545130831326295379, guid: c74924cb4901b3745909518d7cb152e9, type: 3}
+  m_PrefabInstance: {fileID: 1545130830767732796}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4607030904470952998
 PrefabInstance:
   m_ObjectHideFlags: 0
