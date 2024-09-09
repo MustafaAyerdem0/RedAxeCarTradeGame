@@ -23,6 +23,11 @@
 * There is an inventory system controlled by scriptable objects.
 * There is a trade system to exchange money and cars with the other player.
 * We can drive and sell the cars in our inventory.
+* By right clicking on the vehicle we can perform some operations (drive, split, drop)
+* We can see the properties of the objects in the inventory by clicking once
+* We can change the location of the item by dragging
+* In the trading system, if one party approves for secure shopping, the trading system is locked.
+* We can see the properties of the vehicle placed in front of us by clicking on it in the trading system
 
 ![image](https://github.com/user-attachments/assets/30c0bdc1-064f-4278-bf35-67b7200ae112)
 
