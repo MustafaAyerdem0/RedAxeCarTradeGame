@@ -1,13 +1,14 @@
 # Red Axe Games Case Project
 
+## Presentation Video
 
+* https://www.youtube.com/watch?v=o6jZjxMc5gI
 
 ## Getting Started
 
 * To start the game, you can start the Lobby scene in the _scenes folder. If you are not registered, you can open an account and log in.
 ![image](https://github.com/user-attachments/assets/b5eb4bdc-af19-4cce-91b9-fea763a1dbe5)
 ![image](https://github.com/user-attachments/assets/1bb1c0b6-bb3d-4b22-b190-a559183e8915)
-
 
 
 ## Gameplay Mechanics
@@ -26,7 +27,9 @@
 ![image](https://github.com/user-attachments/assets/30c0bdc1-064f-4278-bf35-67b7200ae112)
 
 
-
 ## Multiplayer System
 
 * In the game, our car driving player movements and trade system are completely compatible with the multiplayer.
+
+
+
