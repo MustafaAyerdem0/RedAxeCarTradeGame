@@ -236,22 +236,14 @@ public class InventoryController : MonoBehaviourPun
             OnTradeAcceptedOrRejected(13, 17, true);
             CheckHaveCarInInventory();
 
-
-
-            Debug.LogError(TradeWindow.instance.ourMoneyInputField.text.GetType());
-            Debug.LogError(TradeWindow.instance.otherMoney.text);
-            Debug.LogError(TradeWindow.instance.ourMoneyInputField.text);
-
-
             int intMoney;
             if (int.TryParse(TradeWindow.instance.ourMoneyInputField.text.Trim().ToString(), out intMoney))
             {
-                Debug.LogError(intMoney);
                 PlayerData.instance.ourMoney -= intMoney;
             }
             if (int.TryParse(TradeWindow.instance.otherMoney.text.Trim().ToString(), out intMoney))
             {
-                Debug.LogError(intMoney);
+
                 PlayerData.instance.ourMoney += intMoney;
             }
 

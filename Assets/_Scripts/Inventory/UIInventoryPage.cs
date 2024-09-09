@@ -105,7 +105,7 @@ public class UIInventoryPage : MonoBehaviour
     {
         int index = listOfUIItems.IndexOf(inventoryItemUI);
         if (index == -1 || index > 12) return;
-        else if ((TradeWindow.instance.ourToggle.isOn || TradeWindow.instance.otherToggle.isOn) && index > 8) return;
+        else if (TradeWindow.instance != null && (TradeWindow.instance.ourToggle.isOn || TradeWindow.instance.otherToggle.isOn) && index > 8) return;
         OnSwapItems?.Invoke(currentlyDraggedItemIndex, index);
         HandleItemSelection(inventoryItemUI);
     }
