@@ -50,7 +50,7 @@ public class TradeWindow : MonoBehaviourPun
         if (int.TryParse(ourMoneyInputField.text, out intMoney))
         {
             ourMoneyInputField.text = MoneyManager.instance.GetMaxMoney(intMoney).ToString();
-            Debug.LogError("cast edildi");
+            //Debug.LogError("cast edildi");
         }
         photonView.RPC("ChangeMoneyRPC", localTradeRequest.targetPhotonView.Owner, ourMoneyInputField.text);
 
